@@ -1,0 +1,186 @@
+/* index.css - Product Page */
+
+main {
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 60px 20px;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-content {
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.hero-img {
+    width: 350px;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+.hero-text h1 {
+    font-size: 56px;
+    font-weight: 700;
+    margin: 10px 0;
+    letter-spacing: -1.5px;
+}
+
+.badge {
+    background: #f5f5f7;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #86868b;
+}
+
+.publisher {
+    font-size: 21px;
+    color: #86868b;
+    margin-bottom: 25px;
+}
+
+.btn-primary {
+    background: #0071e3;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #0077ed;
+}
+
+/* Info Grid */
+.content-section {
+    background: #f5f5f7;
+    padding: 80px 20px;
+}
+
+.info-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.description-box, .specs-box {
+    background: white;
+    padding: 40px;
+    border-radius: 24px;
+}
+
+.description-box h3, .specs-box h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.description-box p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #1d1d1f;
+    white-space: pre-line; /* Mantiene los saltos de línea del objeto */
+}
+
+.specs-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.specs-box li {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: #424245;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f5f5f7;
+}
+
+.platform-badge {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #d2d2d7;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .hero-content { flex-direction: column; text-align: center; }
+    .info-grid { grid-template-columns: 1fr; }
+    .hero-img { width: 100%; max-width: 300px; }
+    .hero-text h1 { font-size: 36px; }
+}
+
+/* Grupo de botones (Call to Action) */
+.cta-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Estilo para el botón de favoritos */
+.btn-favorite {
+    background: #f5f5f7;
+    color: #0071e3;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-favorite:hover {
+    background: #e8e8ed;
+    transform: scale(1.02);
+}
+
+.btn-favorite:active {
+    transform: scale(0.98);
+}
+
+.btn-favorite svg {
+    transition: transform 0.2s ease;
+}
+
+.btn-favorite:hover svg {
+    transform: scale(1.1);
+}
+
+/* Ajuste responsivo para botones */
+@media (max-width: 600px) {
+    .cta-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    .btn-primary, .btn-favorite {
+        width: 100%;
+        justify-content: center;
+    }
+}
