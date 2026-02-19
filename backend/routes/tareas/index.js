@@ -77,7 +77,7 @@ route.put("/tareas/:id", async(req, res) => {
         res.send("Se actualizo")
     } catch (error) {
         res.status(400).json({
-            message: "Hubo un erro", error
+            message: "Hubo un error", error
         })
     }
 })
