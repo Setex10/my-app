@@ -9,7 +9,7 @@ const checkTokenJWT = (req, res, next) => {
         if (req.path.startsWith('/api')) {
             return res.status(401).json({ mensaje: "No autorizado. Token inexistente." });
         }
-        return res.status(401).sendFile(path.join(__dirname, "../public2/errors/noLogin/index.html"))
+        return res.status(401).sendFile(path.join(__dirname, "../../public2/errors/noLogin/index.html"))
     }
 
     try {
