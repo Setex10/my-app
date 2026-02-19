@@ -36,8 +36,8 @@ app.use((err, req, res, next) => {
   res.status(500).send('Error en el servidor');
 });
 
-app.use(express.static('./public2'))
-app.use('/static', express.static('./public2'))
+app.use(express.static('../public2'))
+app.use('/static', express.static('../public2'))
 
 
 app.listen(PORT_SEV, () => {
