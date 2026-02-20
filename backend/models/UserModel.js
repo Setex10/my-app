@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
+const InventarioSchema = require("./InventarioModel.js");
 const UserSchema = mongoose.Schema({
     name: {
         type: String,
@@ -19,7 +20,10 @@ const UserSchema = mongoose.Schema({
         required: [true, 'La contraseña es obligatoria'],
         minlength: [8, 'La contraseña debe tener al menos 8 caracteres']
     },
-    favoriteGames: [Number]
+    role: {
+        type: String, 
+        required: [true, "Debe de existir "]
+    }
 })
 
 UserSchema.pre("save", async function(next){
