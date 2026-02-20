@@ -1,6 +1,6 @@
 const { default: mongoose } = require("mongoose");
 
-const InventarioSchema = mongoose.Schema({
+const ProductSchema = mongoose.Schema({
     name: {
         type: String, 
         require: true,
@@ -27,4 +27,4 @@ const InventarioSchema = mongoose.Schema({
     }
 })
 
-module.exports = InventarioSchema
+module.exports = ProductSchema

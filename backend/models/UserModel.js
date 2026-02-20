@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt");
-const InventarioSchema = require("./InventarioSchema.js");
+const InventarioSchema = require("./InventarioModel.js");
 const UserSchema = mongoose.Schema({
     name: {
         type: String,
@@ -23,8 +23,7 @@ const UserSchema = mongoose.Schema({
     role: {
         type: String, 
         required: [true, "Debe de existir "]
-    },
-    Inventario: [InventarioSchema]
+    }
 })
 
 UserSchema.pre("save", async function(next){
