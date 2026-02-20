@@ -1,23 +1,9 @@
 import { Link } from "react-router-dom"
-
+import "./admin.css"
 // Las etiquetas "a" son solo de referencia, se cambiaran para implementar el react router dom
 const Admin = () => {
     return <main>
-        <h2>Vista de admin</h2>
-        <section>
-            <div>
-                <a href="/">Agregar un producto</a>
-            </div>
-            <div>
-                <a href="/">Buscar un producto</a>
-            </div>
-            <div>
-                <a href="/">Eliminar un Producto</a>
-            </div>
-            <div>
-                <a href="/">Modificar un producto</a>
-            </div>
-        </section>
+        <h2 className="text-sky-800 font-bold">Empieza a configurar tu inventario</h2>
     </main>
 }
 
