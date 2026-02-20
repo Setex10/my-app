@@ -1,0 +1,58 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0a0f1c; /* fondo oscuro tipo cine */
+  color: #ffffff;
+}
+
+/* Contenedor principal */
+.detalle {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  display: flex;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Imagen */
+.imagenProducto img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 8px;
+}
+
+/* Información */
+.infoProducto {
+  flex: 1;
+}
+
+.infoProducto h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.infoProducto p {
+  font-size: 17px;
+  margin-bottom: 15px;
+  color: #cfd8dc; /* gris claro elegante */
+}
+
+/* Botón estilo Cinépolis */
+button {
+  margin-top: 25px;
+  padding: 14px 30px;
+  background-color: #0066ff; /* azul marca */
+  color: white;
+  border: none;
+  border-radius: 30px; /* botón más redondeado */
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #004ec2;
+}
