@@ -26,19 +26,16 @@ const UserSchema = mongoose.Schema({
     }
 })
 
-UserSchema.pre("save", async function(next){
-    if (!this.isModified('password')) return next();
+UserSchema.pre("save", async function () {
+  if (!this.isModified('password')) return;
 
-    try {
-        // Generamos un 'salt' (un valor aleatorio para fortalecer el hash)
-        const salt = await bcrypt.genSalt(10);
-        // Hasheamos la contraseña
-        this.password = await bcrypt.hash(this.password, salt);
-        next();
-    } catch (error) {
-        next(error);
-    }
-})
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  } catch (err) {
+    throw err; // Mongoose recibirá el rechazo y abortará el save
+  }
+});
 
 UserSchema.methods.comparePassword = async function(passwordCandidata) {
     return await bcrypt.compare(passwordCandidata, this.password);

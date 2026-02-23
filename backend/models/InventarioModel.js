@@ -10,4 +10,6 @@ const InventarioSchema = mongoose.Schema({
   }
 })
 
-module.exports = InventarioSchema
+const InventarioModel = mongoose.model("Inventario", InventarioSchema)
+
+module.exports = InventarioModel
