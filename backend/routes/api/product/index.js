@@ -10,7 +10,7 @@ route.get("/api/product/:id",async (req,res) =>{
     try {
         const doc = await getInventario(token)
         const {product_list} = doc
-        const product = product_list.filter((item) => item.id = id) 
+        const product = product_list.filter((item) => item.id == id) 
         res.send(product)
     } catch (error) {
         console.log(error)
@@ -57,13 +57,32 @@ route.put("/api/product/:id",async (req,res) =>{
         const {product_list} = doc
         const product = product_list.filter((item) => item.id == id)
         const newProductModify = Object.assign(product[0], keysToModify)
-        res.send(newProductModify)
+        doc.product_list.map((product) => {
+            if(product.id == id){
+                return newProductModify
+            }
+            return product
+        })
+        await doc.save()
+        res.send(doc)
     } catch (error) {
         console.log(error)
         res.status(400).send({message: "Existe un erorr", error})
     }
 })
 
-
+route.delete("/api/product/:id", async (req, res) => {
+    const {id} = req.params
+    const {token} = req.cookies
+    try {
+        const doc = await getInventario(token)
+        doc.product_list = doc.product_list.filter((product) => product.id !== id)
+        await doc.save()
+        res.status(200).json({message: "Se borro el producto"})
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({message: "Existe un erorr", error})
+    }
+})
 
 module.exports = route
