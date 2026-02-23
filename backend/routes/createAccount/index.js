@@ -5,6 +5,7 @@ const path = require("path")
 const secretKey = process.env.SECRET_KEY
 const jwt = require("jsonwebtoken")
 const UserModel = require("../../models/UserModel.js")
+const InventarioModel = require("../../models/InventarioModel.js")
 
 route.get("/createAccount", (req, res) => {
     res.sendFile(path.join(__dirname, "../../public/login/createAccount.html"))
@@ -19,10 +20,13 @@ route.post("/createAccount", async (req, res) => {
             message: "email is alredy exist"
         })
         const doc = new UserModel({email, name, password, role})
+        const inventario = new InventarioModel({user: doc._id})
         await doc.save()
+        await inventario.save()
+        
         const token = jwt.sign({
             id: doc.id,
-            email, name
+            email, name, role
         }, secretKey)
         res.cookie("token", token)
         res.status(201).json({
