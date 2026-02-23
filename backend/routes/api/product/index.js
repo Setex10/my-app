@@ -10,7 +10,7 @@ route.get("/api/product/:id",async (req,res) =>{
     try {
         const doc = await getInventario(token)
         const {product_list} = doc
-        const product = product_list.filter((item) => item.id = id) 
+        const product = product_list.filter((item) => item.id == id) 
         res.send(product)
     } catch (error) {
         console.log(error)
