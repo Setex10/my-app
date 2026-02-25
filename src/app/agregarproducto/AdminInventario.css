@@ -1,0 +1,93 @@
+/* Fondo general */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0a0f1f; /* azul oscuro */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Centrar todo el contenido */
+div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título principal */
+h1 {
+    margin-top: 40px;
+    color: #00bfff; /* azul brillante */
+    font-size: 28px;
+}
+
+/* Contenedor del formulario */
+div div {
+    background-color: #16213e; /* azul más claro */
+    padding: 25px;
+    margin-top: 30px;
+    width: 380px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 191, 255, 0.3);
+}
+
+/* Textos */
+p {
+    color: white;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+/* Campos */
+input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+/* Botón */
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #00bfff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Hover del botón */
+button:hover {
+    background-color: #0088cc;
+}
+/* Fondo oscuro que cubre toda la pantalla */
+.popup {
+    position: fixed; /* IMPORTANTE */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.7);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000; /* Para que quede encima de todo */
+}
+
+/* Caja del popup */
+.popup-contenido {
+    background-color: #16213e;
+    padding: 30px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+
+    box-shadow: 0px 0px 20px rgba(0, 191, 255, 0.5);
+}
