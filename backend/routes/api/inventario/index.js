@@ -5,16 +5,24 @@ const jwt = require("jsonwebtoken")
 
 route.get("/api/inventario",async (req,res) =>{
     const {token} = req.cookies
-    console.log(token)
     const decoded = jwt.decode(token, process.env.SECRET_KEY)
+    const {name} = req.query
+    console.log(name)
     try {
         const doc = await InventarioModel.findOne({user: decoded.id})
+        if(name.length > 0){
+            regex = new RegExp(name, "i"),
+            results = doc.product_list.filter(product => regex.test(product.name));
+            console.log(results)
+            return  res.json({product_list: results})
+        }
         const {product_list} = doc
-        res.send({product_list})
+        res.json({product_list})
     } catch (error) {
         console.log(error)
         res.status(400).send({message: "Existe un erorr", error})
     }
 })
+
 
 module.exports = route

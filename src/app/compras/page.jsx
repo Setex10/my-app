@@ -1,28 +1,114 @@
+'use client'
+import { useEffect, useState } from "react";
 import "./ventas.css";
-export default function ventas ( ) {
-    return (
-        <div classname="contenedor">
-            <h1> VENTAS DIARIAS</h1> 
 
-            <div classname= "formulario">
-                <p>
-                <strong>Registrar nueva venta</strong> 
-                </p>
-                <input type="text" placeholder="Nombre del producto" />
-                <br />
+export default function Ventas() {
+  const [productsSugest, setProductsSugest] = useState([])
+  const [inpNameProduct, setInpNameProduct] = useState({
+    nameProduct: "",
+    idProduct: "",
+    quantity: "",
+    price: ""
+  })
 
-                <input type="number" placeholder="Cantidad" />
-                <br />
+  const [producstVenta, setProductVenta] = useState([])
 
-                <input type="number" placeholder="Precio" />
-                <br />
-                <button> guardar venta </button>
+  const onChangeNameProductHandler = (event) => {
+    setInpNameProduct((prevInpNameProduct) => {
+      return {...prevInpNameProduct, ...{nameProduct: event.target.value}}
+    })
+  }
 
-    </div>
-    <div className="lista">
-        <h2>Lista de ventas</h2>
+  const onChangeValueQuantityHandler = (event) => {
+    setInpNameProduct((prevInpNameProduct) => {
+      return {
+        ...prevInpNameProduct,
+        ...{quantity: Number(event.target.value)}
+      }
+    })
+  }
 
-        <table border="1">
+  const onClickSugest = (event) => {
+    const target = event.target
+    const name = target.getAttribute("nameproduct"),
+          id = target.getAttribute("idproduct"),
+          price = target.getAttribute("priceproduct")
+    setInpNameProduct(() => {
+      return {...inpNameProduct, ...{nameProduct: name, idProduct: id, price: price}}
+    })
+    setProductsSugest([])
+  }
+
+  const onClickGuardarProductHandler = () => {
+    setProductVenta((prevProductVenta) => {
+      return [...prevProductVenta, inpNameProduct]
+    })
+  }
+
+  const savePurchaseHandler = async() => {
+    
+  }
+
+  useEffect(() => {
+    if(inpNameProduct.nameProduct.trim().length > 0){
+      if(inpNameProduct.idProduct.trim().length >0 ){
+        return
+      }
+      const fetchData = async() => {
+        try {
+          const res = await fetch(`http://localhost:4000/api/inventario?name=${inpNameProduct}`, {
+            credentials: "include"
+          }
+          )
+          const resJson = await res.json()
+          setProductsSugest(resJson.product_list)
+          console.log(resJson.product_list)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      fetchData()
+    } else {
+      setProductsSugest([])
+    }
+
+  },[inpNameProduct])
+  return (
+    <div className="contenedor">
+      <h1>VENTAS DIARIAS</h1>
+
+      <div className="formulario">
+        <p>
+          <strong>Registrar nueva venta</strong>
+        </p>
+
+        <div className="input-buscador">
+          <input type="text" placeholder="Nombre del producto" value={inpNameProduct.nameProduct}
+           onChange={onChangeNameProductHandler}/>
+
+          {productsSugest.length == 0 ? "": <div className="sugerencias">
+            {productsSugest.map(({name, _id, price}, index) => {
+              return <div className="item-sugerencia" key={index} 
+              nameproduct={name} idproduct={_id}
+              priceproduct={price}
+              onClick={onClickSugest}>{name}</div>
+            })}
+          </div>}
+        </div>
+
+        <input type="number" placeholder="Cantidad" 
+        value={inpNameProduct.quantity} onChange={onChangeValueQuantityHandler}/>
+        <br />
+
+        <input type="number" placeholder="Precio" disabled value={inpNameProduct.price}/>
+        <br />
+
+        <button onClick={onClickGuardarProductHandler}>Guardar producto</button>
+      </div>
+
+      <div className="lista">
+        <h2>Lista de Productos</h2>
+        <table>
           <thead>
             <tr>
               <th>Producto</th>
@@ -30,17 +116,19 @@ export default function ventas ( ) {
               <th>Precio</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Ejemplo</td>
-              <td>2</td>
-              <td>$200</td>
-            </tr>
-          </tbody>
+          {producstVenta.length == 0 ? "" : <tbody>
+            {producstVenta.map(({nameProduct, price, quantity}, index) => {
+              return <tr key={index}>
+                <td>{nameProduct}</td>
+                <td>{quantity}</td>
+                <td>{price}</td>
+              </tr>
+            })
+            }
+            </tbody>}
         </table>
-
       </div>
-        </div>
-    )
-    
+      <button onClick={savePurchaseHandler}>Guardar Compra</button>
+    </div>
+  );
 }
