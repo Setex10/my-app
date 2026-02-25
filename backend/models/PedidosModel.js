@@ -1,5 +1,5 @@
 const e = require("express");
-const { Schema } = require("mongoose");
+const { Schema, Model } = require("mongoose");
 
 const CompraSchema = new Schema({
     list_compra : [{
@@ -22,4 +22,5 @@ const PedidosSchema = new Schema({
     lista_pedidos : [CompraSchema]
 })
 
-module.exports = {PedidosSchema}
+const PedidosModel = new Model("Pedidos", PedidosSchema)
+module.exports = PedidosModel
