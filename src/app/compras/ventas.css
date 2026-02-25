@@ -25,6 +25,11 @@ h1 {
   margin-bottom: 40px;
 }
 
+/* Contenedor del buscador */
+.input-buscador {
+  position: relative;
+}
+
 /* Inputs */
 input {
   width: 100%;
@@ -32,6 +37,31 @@ input {
   margin-bottom: 12px;
   border-radius: 5px;
   border: none;
+}
+
+/* Caja de sugerencias */
+.sugerencias {
+  position: absolute;
+  top: 38px;
+  width: 100%;
+  background-color: #2a2a2a;
+  border-radius: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+/* Cada sugerencia */
+.item-sugerencia {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #333;
+}
+
+/* Hover */
+.item-sugerencia:hover {
+  background-color: #1e90ff;
 }
 
 /* Botón */
@@ -45,7 +75,6 @@ button {
   cursor: pointer;
 }
 
-/* Efecto cuando pasas el mouse */
 button:hover {
   background-color: #0d6efd;
 }

@@ -1,41 +1,58 @@
+'use client'
+import { useEffect, useState } from "react"
 import "./inventario.css"
 export default function  Inventario(){
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    const fetchFunction = async () => {
+      try {
+      const res = await fetch("http://localhost:4000/api/inventario", {
+      method: "GET",
+      credentials: "include"
+      })
+      const resJson = await res.json()
+      console.log(resJson)
+      setLoading(false)
+      setData(resJson.product_list)
+    } catch (error) {
+      console.log(error)
+    }
+    }
 
-    const productos = [
-        { id: 1, nombre: "Laptop HP", categoria: "Electrónica", stock: 15, precio: 12500 },
-        { id: 2, nombre: "Mouse Logitech", categoria: "Accesorios", stock: 40, precio: 350 },
-        { id: 3, nombre: "Teclado Mecánico", categoria: "Accesorios", stock: 22, precio: 950 },
-        { id: 4, nombre: "Monitor Samsung", categoria: "Electrónica", stock: 8, precio: 4200 },
-        { id: 5, nombre: "Impresora Epson", categoria: "Oficina", stock: 6, precio: 3800 }
-    ]
+    fetchFunction()
+  }, [])
      return <div className="contenedor">
-   <h1 className="titulo">Inventario General</h1>
+      {loading ? <h2>Esta cargando</h2> : <><h2 className="titulo">Inventario General</h2>
    <div className  ="tabla-contenedor">
    <table className="tabla"> 
      <thead>
             <tr>
               <th>ID</th>
               <th>Nombre</th>
-              <th>Categoría</th>
+              <th>Descripcion</th>
               <th>Stock</th>
               <th>Precio</th>
+              <th>Precio Unitario</th>
+              <th>Image</th>
             </tr>
           </thead>
 
           <tbody>
-            {productos.map((producto) => (
-              <tr key={producto.id}>
-                <td>{producto.id}</td>
-                <td>{producto.nombre}</td>
-                <td>{producto.categoria}</td>
-                <td>{producto.stock}</td>
-                <td>${producto.precio}</td>
+            {data.map((producto) => (
+              <tr key={producto._id}>
+                <td>{producto._id}</td>
+                <td>{producto.name}</td>
+                <td>{producto.description}</td>
+                <td>{producto.quantity}</td>
+                <td>${producto.price}</td>
+                <td>{producto.unit_price}</td>
+                <td><img src={producto.img_url} alt={producto.name} /></td>
               </tr>
             ))}
           </tbody>
    </table>
    </div>
-
-
+   </>}
    </div>
 }
