@@ -28,7 +28,10 @@ route.post("/createAccount", async (req, res) => {
             id: doc.id,
             email, name, role
         }, secretKey)
-        res.cookie("token", token)
+        res.cookie("token", token, {
+            secure: false,
+            sameSite: "lax"
+        })
         res.status(201).json({
             message: "work",
             status: 201,

@@ -1,6 +1,23 @@
+'use client'
+import { useEffect, useState } from "react"
 import "./inventario.css"
 export default function  Inventario(){
+  const [data, setData] = useState([])
+  useEffect(() => {
+    const fetchFunction = async () => {
+      try {
+      const res = await fetch("http://localhost:4000/api/inventario", {
+      method: "GET"
+      })
+      const resJson = await res.json()
+      console.log(resJson)
+    } catch (error) {
+      console.log(error)
+    }
+    }
 
+    fetchFunction()
+  }, [])
     const productos = [
         { id: 1, nombre: "Laptop HP", categoria: "Electrónica", stock: 15, precio: 12500 },
         { id: 2, nombre: "Mouse Logitech", categoria: "Accesorios", stock: 40, precio: 350 },
