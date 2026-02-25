@@ -5,7 +5,8 @@ const jwt = require("jsonwebtoken")
 
 route.get("/api/inventario",async (req,res) =>{
     const {token} = req.cookies
-    const decoded = await jwt.decode(token, process.env.SECRET_KEY)
+    console.log(token)
+    const decoded = jwt.decode(token, process.env.SECRET_KEY)
     try {
         const doc = await InventarioModel.findOne({user: decoded.id})
         const {product_list} = doc
