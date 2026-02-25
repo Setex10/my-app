@@ -11,8 +11,6 @@ export default function CreateAccount() {
 
   const [message, setMessage] = useState("");
 
-  const host = window.location.origin;
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -26,12 +24,13 @@ export default function CreateAccount() {
     event.preventDefault();
 
     try {
-      const response = await fetch(`${host}/createAccount`, {
+      const response = await fetch(`http://localhost:4000/createAccount`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        credentials: "include",
+        body: JSON.stringify({...formData, role: "admin"}),
       });
 
       const dataJson = await response.json();
@@ -45,7 +44,7 @@ export default function CreateAccount() {
       setMessage(fullMessage);
 
       if (dataJson.status === 201) {
-        window.location.href = `${host}/`;
+        window.location.href = `http://localhost:3000/`;
       }
     } catch (error) {
       console.error(error);
