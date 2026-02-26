@@ -34,7 +34,7 @@ export default function Ventas() {
           id = target.getAttribute("idproduct"),
           price = target.getAttribute("priceproduct")
     setInpNameProduct(() => {
-      return {...inpNameProduct, ...{nameProduct: name, idProduct: id, price: price}}
+      return {...inpNameProduct, ...{name: name, idProduct: id, price: price}}
     })
     setProductsSugest([])
   }
@@ -46,7 +46,22 @@ export default function Ventas() {
   }
 
   const savePurchaseHandler = async() => {
-    
+    try {
+      const res = await fetch("http://localhost:4000/api/pedidos", {
+        method: "POST",
+        body: JSON.stringify({pedido: producstVenta}),
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        }
+      })
+      if(res.status == 200){
+      }
+      console.log(await res.json())
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
@@ -83,7 +98,7 @@ export default function Ventas() {
         </p>
 
         <div className="input-buscador">
-          <input type="text" placeholder="Nombre del producto" value={inpNameProduct.nameProduct}
+          <input type="text" placeholder="Nombre del producto" value={inpNameProduct.name}
            onChange={onChangeNameProductHandler}/>
 
           {productsSugest.length == 0 ? "": <div className="sugerencias">
@@ -117,9 +132,9 @@ export default function Ventas() {
             </tr>
           </thead>
           {producstVenta.length == 0 ? "" : <tbody>
-            {producstVenta.map(({nameProduct, price, quantity}, index) => {
+            {producstVenta.map(({name, price, quantity}, index) => {
               return <tr key={index}>
-                <td>{nameProduct}</td>
+                <td>{name}</td>
                 <td>{quantity}</td>
                 <td>{price}</td>
               </tr>
