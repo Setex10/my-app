@@ -7,6 +7,7 @@ const InventarioModel = require("../../../models/InventarioModel.js")
 route.get("/api/product/:id",async (req,res) =>{
     const {id} = req.params
     const {token} = req.cookies
+    console.log(token)
     try {
         const doc = await getInventario(token)
         const {product_list} = doc
