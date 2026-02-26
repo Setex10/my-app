@@ -18,4 +18,4 @@ route.post("/admin",async (req,res)=>{
 
 })
 
-module.exports = route
+module.exports = route 

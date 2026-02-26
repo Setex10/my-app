@@ -1,5 +1,6 @@
 import "./menu.css"
 import Link from "next/link"
+import SearchProduct from "./SearchProduct"
 const Menu = () => {
     return <header >
         <nav>
@@ -15,12 +16,7 @@ const Menu = () => {
                     </Link>
                 </li>
             </ul>
-            <form className="barra-de-busqueda" >
-                 <input
-                    type="texto"
-                    placeholder="Buscar"
-                />
-            </form>
+            <SearchProduct />
         </nav>
     </header>
 }
