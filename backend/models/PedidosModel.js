@@ -1,26 +1,24 @@
-const e = require("express");
-const { Schema, Model } = require("mongoose");
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const CompraSchema = new Schema({
+const CompraSchema = mongoose.Schema({
     list_compra : [{
-        producto: {
-            type: String,
-            ref: "User"
-        },
         name: String,
         price: Number, 
         quantity: Number,
-    }]
+    }],
+    id_compra: Schema.Types.ObjectId
 })
 
-const PedidosSchema = new Schema({
+const PedidosSchema = mongoose.Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
     lista_pedidos : [CompraSchema]
 })
 
-const PedidosModel = new Model("Pedidos", PedidosSchema)
+const PedidosModel = mongoose.model("Pedidos", PedidosSchema)
+
 module.exports = PedidosModel
