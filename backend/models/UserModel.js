@@ -22,8 +22,16 @@ const UserSchema = mongoose.Schema({
     },
     role: {
         type: String, 
+        enum: ["admin", "inventario", "ventas"],
+        default: "ventas", 
         required: [true, "Debe de existir "]
-    }
+    },
+    empresa: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Empresa",
+    required: [true, "Debe de pertenecer a alguna empresa"]
+    },
+
 })
 
 UserSchema.pre("save", async function () {
