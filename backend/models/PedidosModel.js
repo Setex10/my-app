@@ -11,7 +11,7 @@ const CompraSchema = mongoose.Schema({
 })
 
 const PedidosSchema = mongoose.Schema({
-    empresa: {
+    enterprise: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Empresa"
     },

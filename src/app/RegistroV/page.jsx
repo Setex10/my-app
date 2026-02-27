@@ -4,7 +4,7 @@ import MostrarVentas from "../components/MostrarVentas.jsx"
 export default function RegistroV() {
   
     return (
-        <div classname="contenedor">
+        <div className="contenedor">
             <h1>
                 <strong>
                     VENTAS REGISTRADAS
@@ -15,7 +15,6 @@ export default function RegistroV() {
         <div className="tabla-container">
         <MostrarVentas />
       </div>
-
     </div>
     );
 }
