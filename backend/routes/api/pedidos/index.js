@@ -4,19 +4,23 @@ const jwt = require("jsonwebtoken")
 const PedidosModel = require("../../../models/PedidosModel.js")
 const { getDecodedJwt } = require("../../../utils/getDecodedJwt.js")
 const { default: mongoose } = require("mongoose")
+const { checkRoleVentas } = require("../../../middleware/checkRole.js")
 
-route.get("/api/pedidos",async (req,res) =>{
+route.get("/api/pedidos", checkRoleVentas, async (req,res) =>{
     const {token} = req.cookies
-    const decoded = await getDecodedJwt(token)
+    const {enterprise} = await getDecodedJwt(token)
     try {
-        const doc = await PedidosModel.find({user: decoded.id})
-        console.log(doc)
+        const doc = await PedidosModel.find({enterprise})
+        res.json(doc)
     } catch (error) {
         console.log(error)
+        res.status(400).json({
+            message: "Mal error"
+        })
     }
 })
 
-route.post("/api/pedidos", async(req, res) => {
+route.post("/api/pedidos", checkRoleVentas, async(req, res) => {
     const pedido  = req.body.pedido
     const {token} = req.cookies
     const decoded = await getDecodedJwt(token)

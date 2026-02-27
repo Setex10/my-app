@@ -2,8 +2,9 @@ const express = require("express")
 const route = express.Router()
 const InventarioModel = require("../../../models/InventarioModel.js")
 const jwt = require("jsonwebtoken")
+const {checkRoleInventory} = require("../../../middleware/checkRole.js")
 
-route.get("/api/inventario",async (req,res) =>{
+route.get("/api/inventario", checkRoleInventory, async (req,res) =>{
     const {token} = req.cookies
     const decoded = jwt.decode(token, process.env.SECRET_KEY)
     const {name} = req.query

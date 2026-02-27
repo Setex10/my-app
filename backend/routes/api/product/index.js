@@ -1,10 +1,11 @@
 const express = require("express")
 const route = express.Router()
 const {getInventario} = require("../../../utils/getInventario.js")
-const { getDecodedJwt } = require("../../../utils/getDecodedJwt.js")
+const {getDecodedJwt} = require("../../../utils/getDecodedJwt.js")
 const InventarioModel = require("../../../models/InventarioModel.js")
+const { checkRoleInventory } = require("../../../middleware/checkRole.js")
 
-route.get("/api/product/:id",async (req,res) =>{
+route.get("/api/product/:id", checkRoleInventory, async (req,res) =>{
     const {id} = req.params
     const {token} = req.cookies
     console.log(token)
@@ -19,13 +20,13 @@ route.get("/api/product/:id",async (req,res) =>{
     }
 })
 
-route.post("/api/product", async(req, res) => {
+route.post("/api/product",checkRoleInventory, async(req, res) => {
     const {token} = req.cookies
     const {name, description, quantity, price, img_url, unit_price} = req.body
     try {
-        const {id} = await getDecodedJwt(token)
+        const {id} = getDecodedJwt(token)
         await InventarioModel.findOneAndUpdate(
-        { user: id },
+        { enterprise },
         {
             $push: {
             product_list: {
@@ -49,7 +50,7 @@ route.post("/api/product", async(req, res) => {
     }
 })
 
-route.put("/api/product/:id",async (req,res) =>{
+route.put("/api/product/:id", checkRoleInventory, async (req,res) =>{
     const {id} = req.params
     const {token} = req.cookies
     const {...keysToModify} = req.body
@@ -72,7 +73,7 @@ route.put("/api/product/:id",async (req,res) =>{
     }
 })
 
-route.delete("/api/product/:id", async (req, res) => {
+route.delete("/api/product/:id", checkRoleInventory, async (req, res) => {
     const {id} = req.params
     const {token} = req.cookies
     try {

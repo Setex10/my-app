@@ -49,7 +49,8 @@ route.post("/createAccount", async (req, res) => {
         
         const token = jwt.sign({
             id: doc.id,
-            email, name, role
+            email, name, role,
+            enterprise: enterpriseDoc.id
         }, secretKey)
         res.cookie("token", token, {
             secure: false,
