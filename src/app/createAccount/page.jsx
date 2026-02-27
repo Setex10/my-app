@@ -54,6 +54,15 @@ export default function CreateAccount() {
 
   return (
     <form id="loginUser" onSubmit={handleSubmit}>
+           <label>
+        Rol
+        <select>
+          <option value={""}>selecciona un Rol</option>
+          <option value={"inventario"}>Gestionador de Inventario</option>
+         <option value={"ventas"}>ventas</option>
+          <option value={"admin"}>Admin</option>
+        </select>
+      </label>
       <label>
         Email
         <input
@@ -92,6 +101,7 @@ export default function CreateAccount() {
       <p>{message}</p>
 
       <a href="/login">Iniciar Sesion</a>
+      
     </form>
   );
 }
