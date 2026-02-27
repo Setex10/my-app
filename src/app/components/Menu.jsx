@@ -29,7 +29,17 @@ const Menu = () => {
                     <img src="/plus-hexagon.png" alt="" />
                     </Link>
                 </li>
-            
+                <li>
+                <Link href = "/RegistroUser">
+                <img src="/users-alt.png" alt="" />
+                </Link>
+
+
+                    
+                </li>
+
+
+
                 <li>
                     <Link href="/inventario">
                     <img src="/warehouse.png" alt="" />
