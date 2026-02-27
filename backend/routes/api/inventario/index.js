@@ -6,10 +6,10 @@ const {checkRoleInventory} = require("../../../middleware/checkRole.js")
 
 route.get("/api/inventario", checkRoleInventory, async (req,res) =>{
     const {token} = req.cookies
-    const decoded = jwt.decode(token, process.env.SECRET_KEY)
+    const {enterprise} = jwt.decode(token, process.env.SECRET_KEY)
     const {name} = req.query
+    const doc = await InventarioModel.findOne({enterprise})
     try {
-        const doc = await InventarioModel.findOne({user: decoded.id})
         if(!!name && name.length > 0){
             regex = new RegExp(name, "i"),
             results = doc.product_list.filter(product => regex.test(product.name));

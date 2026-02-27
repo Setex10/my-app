@@ -22,16 +22,17 @@ route.get("/api/product/:id", checkRoleInventory, async (req,res) =>{
 
 route.post("/api/product",checkRoleInventory, async(req, res) => {
     const {token} = req.cookies
-    const {name, description, quantity, price, img_url, unit_price} = req.body
+    console.log(req.body)
+    const {name, description, quantity, price, img_url, unite_price} = req.body
     try {
-        const {id} = getDecodedJwt(token)
+        const {enterprise} = getDecodedJwt(token)
         await InventarioModel.findOneAndUpdate(
         { enterprise },
         {
             $push: {
             product_list: {
                 name, description, quantity, 
-                price, img_url, unit_price
+                price, img_url, unite_price
             }
             }
         },

@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from "react"
 import "./inventario.css"
+import Link from "next/link"
 export default function  Inventario(){
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
@@ -41,12 +42,12 @@ export default function  Inventario(){
           <tbody>
             {data.map((producto) => (
               <tr key={producto._id}>
-                <td>{producto._id}</td>
+                <td><Link href={`/product/${producto._id}`}>{producto._id}</Link></td>
                 <td>{producto.name}</td>
                 <td>{producto.description}</td>
                 <td>{producto.quantity}</td>
                 <td>${producto.price}</td>
-                <td>{producto.unit_price}</td>
+                <td>{producto.unite_price}</td>
                 <td><img src={producto.img_url} alt={producto.name} /></td>
               </tr>
             ))}
