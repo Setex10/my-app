@@ -1,7 +1,8 @@
 require("dotenv").config()
 const jwt = require("jsonwebtoken"),
     { unless } = require('express-unless'),
-    path = require("path")
+    path = require("path");
+
 const checkTokenJWT = (req, res, next) => {
     const token = req.cookies.token;
     console.log(req.path)

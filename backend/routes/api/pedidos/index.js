@@ -4,22 +4,27 @@ const jwt = require("jsonwebtoken")
 const PedidosModel = require("../../../models/PedidosModel.js")
 const { getDecodedJwt } = require("../../../utils/getDecodedJwt.js")
 const { default: mongoose } = require("mongoose")
+const { checkRoleVentas } = require("../../../middleware/checkRole.js")
 
-route.get("/api/pedidos",async (req,res) =>{
+route.get("/api/pedidos", checkRoleVentas, async (req,res) =>{
     const {token} = req.cookies
-    const decoded = await getDecodedJwt(token)
+    const {enterprise} = getDecodedJwt(token)
     try {
-        const doc = await PedidosModel.find({user: decoded.id})
+        const doc = await PedidosModel.find({enterprise})
         console.log(doc)
+        res.status(200).json({lista_pedidos: doc[0].lista_pedidos})
     } catch (error) {
         console.log(error)
+        res.status(400).json({
+            message: "Mal error"
+        })
     }
 })
 
-route.post("/api/pedidos", async(req, res) => {
+route.post("/api/pedidos", checkRoleVentas, async(req, res) => {
     const pedido  = req.body.pedido
     const {token} = req.cookies
-    const decoded = await getDecodedJwt(token)
+    const {enterprise} = getDecodedJwt(token)
     if(pedido.length == 0){
         return res.status(400).json({
             message: "Faltan datos",
@@ -27,9 +32,9 @@ route.post("/api/pedidos", async(req, res) => {
         })
     }
     try {
-        await PedidosModel.findOneAndUpdate({user: decoded.id},  {
+        await PedidosModel.findOneAndUpdate({enterprise},  {
             $setOnInsert: {
-            user: decoded.id
+            enterprise,
             },
             $push: {
                 id_compra: new mongoose.Types.ObjectId(),

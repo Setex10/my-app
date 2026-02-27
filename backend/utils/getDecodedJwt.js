@@ -1,7 +1,7 @@
 require("dotenv").config()
 const jwt = require("jsonwebtoken")
 
-const getDecodedJwt = async(token) => {
+const getDecodedJwt = (token) => {
     try {
         const decoded = jwt.decode(token, process.env.SECRET_KEY)
         return decoded
