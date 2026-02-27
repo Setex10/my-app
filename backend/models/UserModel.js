@@ -24,9 +24,9 @@ const UserSchema = mongoose.Schema({
         type: String, 
         enum: ["admin", "inventario", "ventas"],
         default: "ventas", 
-        required: [true, "Debe de existir "]
+        required: [true, "Debe de existir"]
     },
-    empresa: {
+    enterprise: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Empresa",
     required: [true, "Debe de pertenecer a alguna empresa"]

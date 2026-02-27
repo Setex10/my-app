@@ -3,7 +3,7 @@ const ProductSchema = require("./ProductSchema");
 
 const InventarioSchema = mongoose.Schema({
     product_list: [ProductSchema],
-    empresa: {
+    enterprise: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Empresa"
     },

@@ -6,21 +6,44 @@ const secretKey = process.env.SECRET_KEY
 const jwt = require("jsonwebtoken")
 const UserModel = require("../../models/UserModel.js")
 const InventarioModel = require("../../models/InventarioModel.js")
+const EnterpriseModel = require("../../models/EnterpriseModel.js")
 
 route.get("/createAccount", (req, res) => {
     res.sendFile(path.join(__dirname, "../../public/login/createAccount.html"))
 })
 
 route.post("/createAccount", async (req, res) => {
-    const {email, name, password, role} = req.body
+    const {email, name, password, role, enterprise} = req.body
 
     try {
         const userExist = await UserModel.findOne({email})
         if(!!userExist) return res.status(400).json({
             message: "email is alredy exist"
         })
-        const doc = new UserModel({email, name, password, role})
-        const inventario = new InventarioModel({user: doc._id})
+
+        if(role !== "admin"){
+            //Aquí tendría que pasar el id, el cual el "admin" le tendría que pasar
+            const enterpriseDoc = await EnterpriseModel.find({id: enterprise})
+            if(enterpriseDoc.length == 0){
+                return res.status(404).json({
+                message: "No se encontró la empresa"
+                })
+            }
+            const doc = new UserModel({email, name, password, role, enterprise})
+            const inventario = new InventarioModel({user: doc._id})
+            await doc.save()
+            await inventario.save()
+        }
+
+        const enterpriseDoc = new EnterpriseModel({
+            name
+        })
+        const doc = new UserModel({email, name, password, role, enterprise: enterpriseDoc._id})
+        enterpriseDoc.users = [
+            doc._id
+        ]
+        const inventario = new InventarioModel({enterprise: enterpriseDoc._id})
+        await enterpriseDoc.save()
         await doc.save()
         await inventario.save()
         
