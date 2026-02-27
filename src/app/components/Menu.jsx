@@ -10,6 +10,26 @@ const Menu = () => {
                     <img src="/home.png" alt="" />
                     </Link>
                 </li>
+
+                <li>
+                <Link href = "/RegistroV">
+                <img src="/document.png" alt="" />
+                </Link>
+                </li>
+
+                <li>
+                <Link href = "/compras">
+                <img src="/usd-circle.png" alt="" />
+                </Link>
+                </li>
+                
+                <li>
+                    
+                    <Link href = "/agregarproducto">
+                    <img src="/plus-hexagon.png" alt="" />
+                    </Link>
+                </li>
+            
                 <li>
                     <Link href="/inventario">
                     <img src="/warehouse.png" alt="" />
