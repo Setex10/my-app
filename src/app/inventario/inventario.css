@@ -1,66 +1,199 @@
+* {
+  box-sizing: border-box;
+}
 
-/* Contenedor principal */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background: radial-gradient(circle at top, #0b1f4b 0%, #000814 75%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+/* CONTENEDOR GENERAL */
+
 .contenedor {
-  padding: 40px;
-  min-height: 100vh;
-  background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
+  width: 100%;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Título principal */
-.titulo {
-  margin-bottom: 30px;
+/* TITULOS */
+
+.titulo,
+.contenedor h2 {
   font-size: 32px;
-  color: #fca311; /* Amarillo tipo Cinepolis */
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border-left: 6px solid #fca311;
-  padding-left: 15px;
+  margin-bottom: 40px;
+  color: #ff1e3c;
+  letter-spacing: 2px;
+  text-align: center;
 }
 
-/* Contenedor de tabla */
+/* CONTENEDOR TABLA GENERAL */
+
 .tabla-contenedor {
-  background-color: #1b263b;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 1200px;
+  overflow-x: auto;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #112240, #0a1f4d);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  padding: 30px;
 }
 
-/* Tabla */
+/* TABLA BASE */
+
+table,
 .tabla {
   width: 100%;
   border-collapse: collapse;
-  color: #ffffff;
 }
 
-/* Encabezado */
-.tabla thead {
-  background-color: #003566; /* Azul fuerte */
+/* ENCABEZADO */
+
+thead {
+  background: #1ea7d3;
 }
 
-.tabla th {
-  padding: 15px;
-  text-align: left;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+th {
+  padding: 16px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
 }
 
-/* Celdas */
-.tabla td {
-  padding: 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+/* CELDAS */
+
+td {
+  padding: 14px 12px;
+  font-size: 14px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap;
 }
 
-/* Filas */
-.tabla tbody tr {
-  transition: background 0.3s ease;
+tbody tr:nth-child(even) {
+  background: #1c2f52;
 }
 
-.tabla tbody tr:hover {
-  background-color: rgba(252, 163, 17, 0.1);
+tbody tr:hover {
+  background: #243b66;
 }
 
-/* Precio destacado */
-.tabla td:last-child {
-  color: #fca311;
-  font-weight: bold;
+/* IMAGEN INVENTARIO */
+
+td img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* ============================= */
+/* MOSTRAR VENTAS - CARDS PEDIDO */
+/* ============================= */
+
+.contenedor > div > h2 {
+  color: #00cfff;
+  margin: 50px 0 20px 0;
+  text-align: center;
+}
+
+/* Cada pedido como card */
+
+.contenedor > div {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 60px;
+  padding: 40px 30px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #112240, #0a1f4d);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+/* TABLA DENTRO DE CADA PEDIDO */
+
+.contenedor > div table {
+  margin-top: 20px;
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (min-width: 1400px) {
+  .tabla-contenedor,
+  .contenedor > div {
+    max-width: 1300px;
+  }
+
+  .titulo,
+  .contenedor h2 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .tabla-contenedor,
+  .contenedor > div {
+    max-width: 95%;
+    padding: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contenedor {
+    padding: 40px 15px;
+  }
+
+  .titulo,
+  .contenedor h2 {
+    font-size: 24px;
+  }
+
+  .tabla-contenedor,
+  .contenedor > div {
+    padding: 20px 15px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  th,
+  td {
+    font-size: 13px;
+    padding: 12px 8px;
+  }
+
+  td img {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo,
+  .contenedor h2 {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  th,
+  td {
+    font-size: 12px;
+    padding: 10px 6px;
+  }
+
+  td img {
+    width: 40px;
+    height: 40px;
+  }
 }
