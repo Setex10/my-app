@@ -59,7 +59,7 @@ const ListUsers = () => {
             </tr>
         </thead>
         <tbody>
-            {listUsers.list_users.map(({name, email, role, id}, index) => {
+            {listUsers.list_users && listUsers.list_users.length > 0 ? listUsers.list_users.map(({name, email, role, id}, index) => {
                 return <tr key={index}>
                     <td>{name}</td>
                     <td>{email}</td>
@@ -68,7 +68,7 @@ const ListUsers = () => {
                         deleteUser(id)
                     }}>Eliminar</button></td>
                 </tr>
-            })}
+            }) : <></>}
         </tbody>
     </table>
     {showPopUp && <PopUp closePopUp={closePopUp} text={"Se eliminó al usuario"}/>}

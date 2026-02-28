@@ -40,7 +40,7 @@ export default function  Inventario(){
           </thead>
 
           <tbody>
-            {data.map((producto) => (
+            {data && data.length > 0 ? data.map((producto) => (
               <tr key={producto._id}>
                 <td><Link href={`/product/${producto._id}`}>{producto._id}</Link></td>
                 <td>{producto.name}</td>
@@ -50,7 +50,7 @@ export default function  Inventario(){
                 <td>{producto.unite_price}</td>
                 <td><img src={producto.img_url} alt={producto.name} /></td>
               </tr>
-            ))}
+            )) : <></>}
           </tbody>
    </table>
    </div>
