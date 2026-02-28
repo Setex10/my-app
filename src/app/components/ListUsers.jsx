@@ -1,12 +1,13 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import PopUp from "./PopUp"
 
 const ListUsers = () => {
     const [listUsers, setListUsers] = useState({
         list_users: []
     })
+    const [showPopUp, setShowPopUp] = useState(false)
 
     const deleteUser = async(id) => {
         try {
@@ -17,7 +18,9 @@ const ListUsers = () => {
                     "Content-Type": "application/json",
                     },
                 })
-            console.log(res)
+            if(res.status == 200){
+                setShowPopUp(true)
+            }
         } catch (error) {
             console.log(error)
         }
@@ -40,9 +43,13 @@ const ListUsers = () => {
             }
         }
         fetchData()
-    }, [])
+    }, [listUsers.list_users])
 
-    return <table>
+    const closePopUp = (bool) => {
+        setShowPopUp(bool)
+    }
+
+    return <><table>
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -64,6 +71,8 @@ const ListUsers = () => {
             })}
         </tbody>
     </table>
+    {showPopUp && <PopUp closePopUp={closePopUp} text={"Se eliminó al usuario"}/>}
+    </>
 }
 
 export default ListUsers
