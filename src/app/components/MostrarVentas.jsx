@@ -2,73 +2,32 @@
 import { useEffect, useState } from "react"
 
 const MostrarVentas = () => {
-  const [data, setData] = useState([])
-  const [loadData, setLoadData] = useState(true)
-  const dataPrueba = {lista_pedidos: [
-      {
-        list_compra: [
-          {
-            producto: "prod_001",
-            name: "Taladro Inalámbrico 20V",
-            price: 1899,
-            quantity: 1
-          },
-          {
-            producto: "prod_002",
-            name: "Juego de Brocas 15pz",
-            price: 349,
-            quantity: 2
-          }
-        ]
-      },
-        {
-        list_compra: [
-          {
-            producto: "prod_001",
-            name: "Taladro Inalámbrico 20V",
-            price: 1899,
-            quantity: 1
-          },
-          {
-            producto: "prod_002",
-            name: "Juego de Brocas 15pz",
-            price: 349,
-            quantity: 2
-          }
-        ]
-      },
-      {
-        list_compra: [
-          {
-            producto: "prod_003",
-            name: "Martillo de Uña 16oz",
-            price: 199,
-            quantity: 3
-          }
-        ]
-      }
-    ]}
+  const [data, setData] = useState({lista_pedidos: []})
+  const [loadData, setLoadData] = useState(false)
   useEffect(() => {
     const fetchFunction = async() => {
         try {
-            const dataRes = await fetch("http://localhost:4000/pedidos", {
+            const dataRes = await fetch("http://localhost:4000/api/pedidos", {
                 method: "GET",
-                credentials: "include"
+                credentials: "include",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Accept": "application/json"
+                },
             })
-            if(dataRes.status == 404){
-                setLoadData(true)
-            }
-            setData(dataRes)
+            const dataJson = await dataRes.json()
+            setData(dataJson)
+            setLoadData(true)
         } catch (error) {
-            console.log("hola")
-            console.log(data)
+          console.log(error)
         }
     }
     fetchFunction()
   }, [])
   return <>
   {loadData ? <>
-            {dataPrueba.lista_pedidos.map((pedidos, index) => {
+            {data.lista_pedidos.length > 0 ? data.lista_pedidos.map((pedidos, index) => {
+              console.log(pedidos)
                 return <div key={index}>
                     <h2>{`pedido ${index}`}</h2>
                     <table>
@@ -83,8 +42,8 @@ const MostrarVentas = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {pedidos.list_compra.map((compra) => {
-                                return <tr>
+                                {pedidos.list_compra.map((compra, index) => {
+                                return <tr key={index}>
                                     <td>{compra.name}</td>
                                     <td>{compra.quantity}</td>
                                     <td>{compra.price}</td>
@@ -96,7 +55,7 @@ const MostrarVentas = () => {
                             </tbody>
                     </table>
                 </div>
-            })}
+            }) : <></>}
             </>
         :<h2>Algo salio mal</h2>}
         </>

@@ -11,10 +11,9 @@ const CompraSchema = mongoose.Schema({
 })
 
 const PedidosSchema = mongoose.Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true
+    enterprise: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Empresa"
     },
     lista_pedidos : [CompraSchema]
 })
