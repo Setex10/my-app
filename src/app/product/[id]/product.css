@@ -1,56 +1,162 @@
-body {
-  background-color: #0a0f1c; /* fondo oscuro tipo cine */
-  color: #ffffff;
+* {
+  box-sizing: border-box;
 }
 
-/* Contenedor principal */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background: radial-gradient(circle at top, #0b1f4b 0%, #000814 75%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+/* CONTENEDOR PRINCIPAL */
+
 .detalle {
+  width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 60px 20px;
+  margin: 80px auto;
+  padding: 40px;
   display: flex;
   gap: 60px;
   align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #112240, #0a1f4d);
+  border-radius: 30px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
 }
 
-/* Imagen */
+/* IMAGEN */
+
+.imagenProducto {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .imagenProducto img {
   width: 100%;
   max-width: 450px;
-  border-radius: 8px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
-/* Información */
+/* INFO PRODUCTO */
+
 .infoProducto {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .infoProducto h2 {
-  font-size: 32px;
-  margin-bottom: 20px;
-  color: #ffffff;
+  font-size: 34px;
+  color: #ff1e3c;
+  margin: 0;
 }
 
 .infoProducto p {
-  font-size: 17px;
-  margin-bottom: 15px;
-  color: #cfd8dc; /* gris claro elegante */
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-/* Botón estilo Cinépolis */
-button {
-  margin-top: 25px;
-  padding: 14px 30px;
-  background-color: #0066ff; /* azul marca */
-  color: white;
+.infoProducto strong {
+  color: #00cfff;
+}
+
+/* BOTON */
+
+.infoProducto button {
+  margin-top: 20px;
+  padding: 15px;
   border: none;
-  border-radius: 30px; /* botón más redondeado */
-  font-size: 16px;
+  border-radius: 15px;
+  background: #ff1e3c;
+  color: white;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: 0.3s ease;
+  width: 200px;
 }
 
-button:hover {
-  background-color: #004ec2;
+.infoProducto button:hover {
+  background: #e01430;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 30, 60, 0.4);
+}
+
+/* MENSAJE NO ENCONTRADO */
+
+h2 {
+  text-align: center;
+  margin-top: 100px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1024px) {
+  .detalle {
+    gap: 40px;
+    padding: 30px;
+  }
+
+  .imagenProducto img {
+    max-width: 350px;
+    height: 350px;
+  }
+
+  .infoProducto h2 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .detalle {
+    flex-direction: column;
+    gap: 30px;
+    margin: 50px 20px;
+    padding: 30px 20px;
+  }
+
+  .imagenProducto img {
+    width: 100%;
+    max-width: 320px;
+    height: 320px;
+  }
+
+  .infoProducto {
+    align-items: center;
+    text-align: center;
+  }
+
+  .infoProducto button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .detalle {
+    margin: 40px 15px;
+    padding: 25px 15px;
+  }
+
+  .imagenProducto img {
+    height: 280px;
+  }
+
+  .infoProducto h2 {
+    font-size: 22px;
+  }
+
+  .infoProducto p {
+    font-size: 14px;
+  }
 }

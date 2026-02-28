@@ -1,38 +1,120 @@
-body {
-  background-color: #111;
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background: radial-gradient(circle at top, #0b1f4b 0%, #000814 75%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
-  font-family: Arial;
 }
 
 .contenedor {
-  padding: 30px;
+  width: 100%;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-h1 {
+.contenedor h1 {
+  font-size: 34px;
   margin-bottom: 10px;
-  color: #1e90ff;
+  color: #ff1e3c;
+  letter-spacing: 2px;
+  text-align: center;
 }
 
-p {
-  margin-bottom: 20px;
+.contenedor p {
+  font-size: 16px;
+  margin-bottom: 40px;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
 }
 
+/* CONTENEDOR DE CADA PEDIDO */
 .tabla-container {
-  background-color: #1c1c1c;
-  padding: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 60px;
+  padding: 40px 30px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #112240, #0a1f4d);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
 }
 
-table {
+/* TABLA */
+.tabla-container table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th {
-  background-color: #1e90ff;
-  padding: 10px;
+/* HEADER TABLA */
+.tabla-container thead {
+  background: #1ea7d3;
 }
 
-td {
-  padding: 10px;
-  border-bottom: 1px solid #333;
+.tabla-container th {
+  padding: 18px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* FILAS */
+.tabla-container td {
+  padding: 16px 12px;
+  font-size: 14px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tabla-container tbody tr:nth-child(even) {
+  background: #1c2f52;
+}
+
+.tabla-container tbody tr:hover {
+  background: #243b66;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .tabla-container {
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+  .contenedor {
+    padding: 40px 15px;
+  }
+
+  .contenedor h1 {
+    font-size: 24px;
+  }
+
+  .tabla-container {
+    padding: 20px 15px;
+  }
+
+  .tabla-container table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenedor h1 {
+    font-size: 20px;
+  }
+
+  .tabla-container th,
+  .tabla-container td {
+    font-size: 12px;
+    padding: 12px 8px;
+  }
 }

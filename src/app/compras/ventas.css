@@ -1,97 +1,210 @@
-/* Fondo general */
-body {
-  background-color: #0f0f0f;
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background: radial-gradient(circle at top, #0b1f4b 0%, #000814 75%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Contenedor principal */
 .contenedor {
-  padding: 40px;
+  width: 100%;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Título */
-h1 {
-  color: #1e90ff;
-  margin-bottom: 30px;
-}
-
-/* Caja del formulario */
-.formulario {
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
+.contenedor h1 {
+  font-size: 34px;
   margin-bottom: 40px;
+  color: #ff1e3c;
+  letter-spacing: 2px;
+  text-align: center;
 }
 
-/* Contenedor del buscador */
+/* FORMULARIO */
+
+.formulario {
+  width: 100%;
+  max-width: 600px;
+  background: linear-gradient(135deg, #112240, #0a1f4d);
+  padding: 35px 30px;
+  border-radius: 20px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  margin-bottom: 50px;
+}
+
+.formulario p {
+  margin-bottom: 25px;
+  font-size: 18px;
+  text-align: center;
+}
+
 .input-buscador {
   position: relative;
-}
-
-/* Inputs */
-input {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 12px;
-  border-radius: 5px;
-  border: none;
+  margin-bottom: 20px;
 }
 
-/* Caja de sugerencias */
+.formulario input {
+  width: 100%;
+  padding: 14px 15px;
+  border-radius: 12px;
+  border: none;
+  margin-bottom: 15px;
+  font-size: 14px;
+  outline: none;
+}
+
+.formulario input:focus {
+  box-shadow: 0 0 0 3px rgba(30, 167, 211, 0.4);
+}
+
 .sugerencias {
   position: absolute;
-  top: 38px;
+  top: 100%;
+  left: 0;
   width: 100%;
-  background-color: #2a2a2a;
-  border-radius: 5px;
-  max-height: 150px;
+  background: #1c2f52;
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 200px;
   overflow-y: auto;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
   z-index: 10;
 }
 
-/* Cada sugerencia */
 .item-sugerencia {
-  padding: 10px;
+  padding: 12px;
   cursor: pointer;
-  border-bottom: 1px solid #333;
+  transition: background 0.2s ease;
 }
 
-/* Hover */
 .item-sugerencia:hover {
-  background-color: #1e90ff;
+  background: #243b66;
 }
 
-/* Botón */
-button {
+.formulario button {
   width: 100%;
-  padding: 10px;
-  background-color: #1e90ff;
-  color: white;
+  padding: 14px;
   border: none;
-  border-radius: 5px;
+  border-radius: 12px;
+  background: #ff1e3c;
+  color: white;
+  font-weight: bold;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
-button:hover {
-  background-color: #0d6efd;
+.formulario button:hover {
+  background: #e01430;
 }
 
-/* Tabla */
-table {
+/* LISTA */
+
+.lista {
+  width: 100%;
+  max-width: 900px;
+  background: linear-gradient(135deg, #112240, #0a1f4d);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  margin-bottom: 30px;
+}
+
+.lista h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #00cfff;
+}
+
+.lista table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #1c1c1c;
 }
 
-th {
-  background-color: #1e90ff;
-  padding: 10px;
+.lista thead {
+  background: #1ea7d3;
 }
 
-td {
-  padding: 10px;
-  border-bottom: 1px solid #333;
+.lista th {
+  padding: 14px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.lista td {
+  padding: 14px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.lista tbody tr:nth-child(even) {
+  background: #1c2f52;
+}
+
+/* BOTÓN FINAL */
+
+.contenedor > button {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  border: none;
+  border-radius: 15px;
+  background: #1ea7d3;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.contenedor > button:hover {
+  background: #148bb3;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .contenedor {
+    padding: 40px 15px;
+  }
+
+  .contenedor h1 {
+    font-size: 24px;
+  }
+
+  .formulario {
+    padding: 25px 20px;
+  }
+
+  .lista {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenedor h1 {
+    font-size: 20px;
+  }
+
+  .formulario input {
+    font-size: 13px;
+  }
+
+  .lista table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .lista th,
+  .lista td {
+    font-size: 12px;
+    padding: 10px;
+  }
 }
