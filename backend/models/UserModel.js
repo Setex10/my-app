@@ -1,6 +1,5 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt");
-const InventarioSchema = require("./InventarioModel.js");
 const UserSchema = mongoose.Schema({
     name: {
         type: String,
