@@ -8,6 +8,7 @@ UserModel = require("../../../models/UserModel.js");
 route.get("/api/user", async(req, res) => {
     const {token} = req.cookies
     const {enterprise} = getDecodedJwt(token)
+    const {id} = req.query
     try {
         const doc = await UserModel.find({enterprise})
         const list_users = doc.map(({name, email, role, id}) => {
@@ -15,7 +16,12 @@ route.get("/api/user", async(req, res) => {
                 name, email, role, id
             }
         })
-
+        if(id && id.length > 0){
+            const user = list_users.filter((user) => user.id == id)
+            return res.status(200).json({
+                user: user[0]
+            })
+        }
         res.status(200).json({
             list_users
         })
