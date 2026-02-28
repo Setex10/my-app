@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from "react"
+import PopUp from "./PopUp"
 
 const FormUser = () => {
     const [userData, setUserData] = useState({
@@ -11,6 +12,8 @@ const FormUser = () => {
     })
 
     const [message, setMessage] = useState("")
+
+    const [showPopUp, setShowPopUp] = useState(false)
 
     const onChangeInp = (event) => {
         setMessage("")
@@ -40,12 +43,21 @@ const FormUser = () => {
             if(res.status == 400){
                 return setMessage(resJson.detalles[0])
             }
-            setMessage("Se creo el usuario")
+            setShowPopUp(true)
+            setUserData({
+                name: "",
+                email: "",
+                role: "",
+                password: ""
+            })
         } catch (error) {
             console.log(error)
         }
     }
 
+    const closePopUp = (bool) => {
+        setShowPopUp(bool)
+    }
     return <>
     <input type="text" required placeholder="Nombre" name="name"
     value={userData.name} onChange={onChangeInp}/>
@@ -66,6 +78,7 @@ const FormUser = () => {
     <p>{message}</p>
 
     <button onClick={submitHandler}>Guardar</button>
+    {showPopUp && <PopUp closePopUp={closePopUp} text={"Se guardó el usuario"}/>}
     </>
 }
 
