@@ -5,6 +5,7 @@ const PedidosModel = require("../../../models/PedidosModel.js")
 const { getDecodedJwt } = require("../../../utils/getDecodedJwt.js")
 const { default: mongoose } = require("mongoose")
 const { checkRoleVentas } = require("../../../middleware/checkRole.js")
+const stripe = require("../../../stripe.js")
 
 route.get("/api/pedidos", checkRoleVentas, async (req,res) =>{
     const {token} = req.cookies
@@ -23,6 +24,7 @@ route.get("/api/pedidos", checkRoleVentas, async (req,res) =>{
 
 route.post("/api/pedidos", checkRoleVentas, async(req, res) => {
     const pedido  = req.body.pedido
+    const {method} = req.body
     const {token} = req.cookies
     const {enterprise} = getDecodedJwt(token)
     if(pedido.length == 0){
@@ -32,6 +34,27 @@ route.post("/api/pedidos", checkRoleVentas, async(req, res) => {
         })
     }
     try {
+        if(method == "tarjeta"){
+            console.log(pedido)
+            const list_items = pedido.map(({name, price, quantity}) => {
+                return {
+                    price_data: {
+                        currency: "mxn",
+                        product_data: {
+                            name
+                        },
+                        unit_amount: Number(price) * 100,
+                    },
+                    quantity
+                }
+            })
+              const session = await stripe.checkout.sessions.create({
+                line_items: list_items,
+                mode: 'payment',
+                success_url: `http://localhost:4000/success`,
+            });
+            return res.json({url: session.url})
+        }
         await PedidosModel.findOneAndUpdate({enterprise},  {
             $setOnInsert: {
             enterprise,
