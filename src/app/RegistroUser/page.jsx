@@ -1,3 +1,4 @@
+import FormUser from "../components/FormUser"
 import "./usuarios.css"
 
 export default function Usuarios() {
@@ -7,16 +8,7 @@ export default function Usuarios() {
 
             <h2>Agregar Usuario</h2>
 
-            <input type="text" placeholder="Nombre" />
-            <br /><br />
-
-            <input type="email" placeholder="Correo" />
-            <br /><br />
-
-            <input type="text" placeholder="Rol" />
-            <br /><br />
-
-            <button>Guardar</button>
+            <FormUser />
 
             <hr />
 

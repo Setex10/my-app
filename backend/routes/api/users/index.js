@@ -32,14 +32,25 @@ route.post("/api/user", async(req, res) => {
     const {token} = req.cookies
     const {enterprise} = getDecodedJwt(token)
     const {name, role, email, password} = req.body
+    console.log(enterprise, "W ")
     try {
-        new UserModel({
+        const doc = new UserModel({
             name, role, email, password, enterprise
         })
+        await doc.save()
         res.status(200).json({
             message: "Se creo el usuario"
         })
     } catch (error) {
+        if(error.name == "ValidationError"){
+            const mensajes = Object.values(error.errors).map(el => el.message);
+            return res.status(400).json({ error: "Datos inválidos", detalles: mensajes });
+        }
+        if (error.code === 11000) {
+            return res.status(400).json({ error: "El correo ya está registrado", detalles: [
+                "Correo Ya existe"
+            ]});
+        }
         console.log(error)
         res.status(400).json({
             message: "Algo malo pasó"
