@@ -1,94 +1,138 @@
-/* Reseteo básico y fuente */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
 }
 
 body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0a1f4d, #001233);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Contenedor del formulario */
 #loginUser {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 15px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  width: 100%;
+  max-width: 420px;
+  padding: 50px 40px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
-/* Título opcional (puedes añadir un <h2> al HTML si quieres) */
-#loginUser::before {
-    content: "Bienvenido";
-    display: block;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin-bottom: 0.5rem;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Estilo de los labels */
-label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    color: #555;
-    font-size: 0.9rem;
-    font-weight: 600;
+#loginUser h2 {
+  text-align: center;
+  margin: 0 0 10px 0;
+  font-size: 26px;
+  color: #0033a0;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-/* Estilo de los inputs */
-input {
-    padding: 12px 15px;
-    border: 2px solid #eee;
-    border-radius: 8px;
-    outline: none;
-    transition: all 0.3s ease;
-    font-size: 1rem;
+#loginUser label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0a1f4d;
+  gap: 8px;
 }
 
-input:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 8px rgba(102, 126, 234, 0.2);
+#loginUser input {
+  padding: 14px;
+  border-radius: 10px;
+  border: 2px solid #e4e4e4;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  outline: none;
 }
 
-/* El botón de entrar */
-button {
-    background: #667eea;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s active;
-    margin-top: 1rem;
+#loginUser input:focus {
+  border-color: #0033a0;
+  box-shadow: 0 0 12px rgba(0, 51, 160, 0.4);
 }
 
-button:hover {
-    background: #5a6fd6;
+#loginUser button {
+  margin-top: 10px;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #0033a0, #0057d9);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-button:active {
-    transform: scale(0.98);
+#loginUser button:hover {
+  background: linear-gradient(90deg, #002780, #003f9e);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px rgba(0, 51, 160, 0.4);
 }
 
-/* Responsive */
+#loginUser p {
+  text-align: center;
+  font-size: 14px;
+  color: #0033a0;
+  margin: 0;
+  min-height: 20px;
+}
+
+#loginUser a {
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0033a0;
+  transition: 0.3s ease;
+}
+
+#loginUser a:hover {
+  color: #001f66;
+}
+
+@media (max-width: 768px) {
+  #loginUser {
+    margin: 20px;
+    padding: 35px 25px;
+  }
+}
+
 @media (max-width: 480px) {
-    #loginUser {
-        margin: 20px;
-        padding: 1.5rem;
-    }
+  body {
+    align-items: flex-start;
+    padding-top: 50px;
+  }
+
+  #loginUser {
+    margin: 20px;
+    padding: 30px 20px;
+    border-radius: 16px;
+  }
+
+  #loginUser h2 {
+    font-size: 22px;
+  }
+
+  #loginUser button {
+    font-size: 14px;
+  }
 }

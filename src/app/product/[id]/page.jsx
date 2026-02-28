@@ -2,33 +2,6 @@
 import React, { useEffect, useState } from "react";
 import "./product.css";
 
-// const ProductSchema = mongoose.Schema({
-//     name: {
-//         type: String, 
-//         require: true,
-//     }, 
-//     description: {
-//         type: String,
-//         require: true
-//     },
-//     img_url: {
-//         type: String,
-//         require: true
-//     },
-//     quantity: {
-//         type: Number, 
-//         require: true
-//     },
-//     unite_price: {
-//         type: Number, 
-//         require: true
-//     },
-//     price: {
-//         type: Number, 
-//         require: true
-//     }
-// })
-
 export default function DetalleProducto({params}) {
   const {id} = React.use(params)
   const [product, setProduct] = useState()
