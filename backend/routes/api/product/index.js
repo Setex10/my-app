@@ -67,7 +67,7 @@ route.put("/api/product/:id", checkRoleInventory, async (req,res) =>{
             return product
         })
         await doc.save()
-        res.send(doc)
+        res.status(200).json({message: "Se actualizo el producto"})
     } catch (error) {
         console.log(error)
         res.status(400).send({message: "Existe un erorr", error})
