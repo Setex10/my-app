@@ -1,18 +1,20 @@
 'use client'
+import Link from "next/link"
 import { useEffect, useState } from "react"
 const SearchProduct = () => {
     const [productSugest, setProductsSugest] = useState([])
     const [inpNameProduct, setInpProductName] = useState("")
     
     useEffect(() => {
+      console.log(inpNameProduct)
     if(inpNameProduct.trim().length > 0){
-      if(inpNameProduct.trim().length >0 ){
-        return
-      }
       const fetchData = async() => {
         try {
           const res = await fetch(`http://localhost:4000/api/inventario?name=${inpNameProduct}`, {
-            credentials: "include"
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json"
+            }
           }
           )
           const resJson = await res.json()
@@ -41,11 +43,12 @@ const SearchProduct = () => {
                     onChange={inptProductOnChangeHandler}
                 />
             {productSugest.length > 0 && <ul className="sugerencias">
-                <li>Taladro inalámbrico 20V</li>
-                <li>Martillo Truper 16oz</li>
-                <li>Juego de desarmadores</li>
-                <li>Disco de corte 4 1/2"</li>
-                <li>Cinta métrica 5m</li>
+                {productSugest.map((product, index) => {
+                  return <li key={index}>
+                    <Link href={`/product/${product.id}`}>{product.name}
+                    </Link>
+                    </li>
+                })}
             </ul>}
     </form>
 }

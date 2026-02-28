@@ -3,6 +3,7 @@ const route = express.Router()
 const InventarioModel = require("../../../models/InventarioModel.js")
 const jwt = require("jsonwebtoken")
 const {checkRoleInventory} = require("../../../middleware/checkRole.js")
+const buscarProductos = require("../../../utils/searchProductRegEx.js")
 
 route.get("/api/inventario", checkRoleInventory, async (req,res) =>{
     const {token} = req.cookies
@@ -11,8 +12,7 @@ route.get("/api/inventario", checkRoleInventory, async (req,res) =>{
     const doc = await InventarioModel.findOne({enterprise})
     try {
         if(!!name && name.length > 0){
-            regex = new RegExp(name, "i"),
-            results = doc.product_list.filter(product => regex.test(product.name));
+            const results = buscarProductos(name, doc.product_list)
             console.log(results)
             return  res.json({product_list: results})
         }
