@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import "./inventario.css"
 import Link from "next/link"
+import Menu from "../components/Menu"
 export default function  Inventario(){
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
@@ -23,7 +24,9 @@ export default function  Inventario(){
 
     fetchFunction()
   }, [])
-     return <div className="contenedor">
+     return <>
+     <Menu />
+     <div className="contenedor">
       {loading ? <h2>Esta cargando</h2> : <><h2 className="titulo">Inventario General</h2>
    <div className  ="tabla-contenedor">
    <table className="tabla"> 
@@ -55,5 +58,6 @@ export default function  Inventario(){
    </table>
    </div>
    </>}
-   </div>
+    </div>
+      </>
 }

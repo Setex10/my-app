@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import "./ventas.css";
 import PopUp from "../components/PopUp";
+import Menu from "../components/Menu";
 
 export default function Ventas() {
   const [productsSugest, setProductsSugest] = useState([])
@@ -104,6 +105,7 @@ export default function Ventas() {
   },[inpNameProduct])
   return (
     <>
+    <Menu />
       <div className="contenedor">
         <h1>VENTAS DIARIAS</h1>
 

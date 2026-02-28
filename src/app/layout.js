@@ -22,7 +22,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased mt-20`}>
-          <Menu/>
         {children}
       </body>
     </html>

@@ -3,10 +3,11 @@ import { useState } from "react";
 
 import "./AdminInventario.css";
 import PopUp from "../components/PopUp";
+import Menu from "../components/Menu";
 
 function AdminInventario() {
   const [mostrarPopup, setMostrarPopup] = useState(false);
-
+  const [message, setMessage] = useState("")
   const [product, setProduct] = useState({
     name: "",
     description: "",
@@ -42,10 +43,16 @@ function AdminInventario() {
       })
       const resJson = await res.json()
       if(resJson.status == 200){
+        setMessage("Se agregó el producto")
         setMostrarPopup(true)
+        return
       }
+      setMessage("Revisa que los datos esten bien")
+      setMostrarPopup(true)
     } catch (error) {
       console.log(error)
+      setMessage("Hubo un error al agregar el producto, revisa los datos")
+      setMostrarPopup(true)
     }
     }
     fetchData()
@@ -56,6 +63,8 @@ function AdminInventario() {
   }
 
   return (
+    <>
+    <Menu />
   <div>
 
       <h1>Administrador de Inventario</h1>
@@ -72,7 +81,7 @@ function AdminInventario() {
         <input type="text" name="price" onChange={onChangeInp} value={product.price}/>
 
         <p>Precio Unitario</p>
-        <input type="text" name="unite_price" onChange={onChangeInp} value={product.unite_price}/>
+        <input type="number" name="unite_price" onChange={onChangeInp} value={product.unite_price}/>
 
         <p>Cantidad</p>
         <input type="number" name="quantity" onChange={onChangeInp} value={product.quantity}/>
@@ -87,10 +96,11 @@ function AdminInventario() {
       
       </div>
         {mostrarPopup && (
-        <PopUp closePopUp={closePopUp} text={"Se agrego el producto"}/>
+        <PopUp closePopUp={closePopUp} text={message}/>
       )}
 
   </div>
+  </>
   );
 }
 

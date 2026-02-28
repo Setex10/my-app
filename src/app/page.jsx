@@ -1,7 +1,9 @@
+import Menu from "./components/Menu";
 import "./Home.css";
 
 export default function Home() {
-  return (
+  return (<>
+  <Menu />
     <div>
 
       <div className="header">
@@ -30,5 +32,6 @@ export default function Home() {
       </div>
 
     </div>
+    </>
   );
 }

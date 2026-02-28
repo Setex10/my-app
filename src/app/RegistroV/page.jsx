@@ -1,9 +1,12 @@
 
 import "./RegistroV.css";
 import MostrarVentas from "../components/MostrarVentas.jsx"
+import Menu from "../components/Menu";
 export default function RegistroV() {
   
     return (
+    <>
+    <Menu />
         <div className="contenedor">
             <h1>
                 <strong>
@@ -15,6 +18,7 @@ export default function RegistroV() {
         <div className="tabla-container">
         <MostrarVentas />
       </div>
-    </div>
+        </div>
+    </>
     );
 }

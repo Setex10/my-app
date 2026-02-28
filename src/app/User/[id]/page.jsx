@@ -1,4 +1,5 @@
 'use client'
+import Menu from "@/app/components/Menu";
 import "./usuarios.css";
 
 import React, { useEffect, useState } from "react";
@@ -85,6 +86,8 @@ function Usuarios({params}) {
   }
 
   return (
+    <>
+    <Menu />
     <div>
       <h2>User</h2>
         <div>
@@ -108,6 +111,7 @@ function Usuarios({params}) {
           <p>{message}</p>
         </div>
     </div>
+    </>
   );
 }
 
