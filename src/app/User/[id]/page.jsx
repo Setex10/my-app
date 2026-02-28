@@ -1,5 +1,6 @@
-function Usuarios() {
     import "/.usuarios.css";
+function Usuarios() {
+
   return (
     <div>
       <h1>Usuarios</h1>

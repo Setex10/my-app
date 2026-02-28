@@ -31,18 +31,31 @@ export default function DetalleProducto({params}) {
       </div>
 
       <div className="infoProducto">
+      <label>
+        nombre
+        <input type="text" value={product.name}/>
+      </label>
+       <label>
+        Precio
+        <input type="text" value={product.price}/>
+       </label>
+      <label>
+        descripcion
+        <input type="text" value={product.price}/>
+      </label>
+       
+      <label>
+        <strong>
+          disponible
+          <input type="text" value={product.quantity}/>
+        </strong>
+      </label>
+       
 
-        <h2>{product.name}</h2>
+      
 
-        <p><strong>Precio:</strong> ${product.price}</p>
-
-        <p>
-          {product.description}
-        </p>
-
-        <p><strong>Disponibles:</strong> {product.quantity} piezas</p>
-
-        <button>Comprar</button>
+        <button>Editar</button>
+        <button>Eliminar</button>
 
       </div>
 
