@@ -10,9 +10,9 @@ route.get("/api/user", async(req, res) => {
     const {enterprise} = getDecodedJwt(token)
     try {
         const doc = await UserModel.find({enterprise})
-        const list_users = doc.map(({name, email, role}) => {
+        const list_users = doc.map(({name, email, role, id}) => {
             return {
-                name, email, role
+                name, email, role, id
             }
         })
 
@@ -32,7 +32,6 @@ route.post("/api/user", async(req, res) => {
     const {token} = req.cookies
     const {enterprise} = getDecodedJwt(token)
     const {name, role, email, password} = req.body
-    console.log(enterprise, "W ")
     try {
         const doc = new UserModel({
             name, role, email, password, enterprise
@@ -58,4 +57,50 @@ route.post("/api/user", async(req, res) => {
     }
 })
 
+route.delete("/api/user/:id", async(req, res) => {
+    const {id} = req.params
+    try {
+        const doc = await UserModel.findByIdAndDelete(id)
+        if(doc){
+            res.status(200).json({
+                message:"Se elimino el usuario"
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({
+            message: "hubo un error"
+        })
+    }
+})
+
+route.put("/api/user/:id", async(req, res) => {
+    const {token} = req.cookies
+    const {id} = req.cookies
+    const valuesToUpdate = req.body
+    try {
+        const doc = UserModel.findById(id)
+        Object.keys(valuesToUpdate).map((key) => {
+            doc[key] = valuesToUpdate[key]
+        })
+        await doc.save()
+        res.status(200).json({
+            message: "Se modifico el usuario"
+        })
+    } catch (error) {
+        if(error.name == "ValidationError"){
+            const mensajes = Object.values(error.errors).map(el => el.message);
+            return res.status(400).json({ error: "Datos inválidos", detalles: mensajes });
+        }
+        if (error.code === 11000) {
+            return res.status(400).json({ error: "El correo ya está registrado", detalles: [
+                "Correo Ya existe"
+            ]});
+        }
+        console.log(error)
+        res.status(400).json({
+            message: "Algo malo pasó"
+        })
+    }
+})
 module.exports = route

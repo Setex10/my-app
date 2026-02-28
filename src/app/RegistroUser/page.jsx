@@ -1,4 +1,5 @@
 import FormUser from "../components/FormUser"
+import ListUsers from "../components/ListUsers"
 import "./usuarios.css"
 
 export default function Usuarios() {
@@ -14,18 +15,7 @@ export default function Usuarios() {
 
             <h2>Lista de Usuarios</h2>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Correo</th>
-                        <th>Rol</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <ListUsers/>
         </div>
     )
 }
