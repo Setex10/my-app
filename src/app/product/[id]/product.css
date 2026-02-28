@@ -1,162 +1,137 @@
-* {
-  box-sizing: border-box;
-}
-
-html, body {
+/* Fondo general tipo Cinépolis */
+body {
   margin: 0;
   padding: 0;
-  width: 100%;
-  overflow-x: hidden;
-  background: radial-gradient(circle at top, #0b1f4b 0%, #000814 75%);
+  background-color: #0f0f0f;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
 }
 
-/* CONTENEDOR PRINCIPAL */
-
+/* Contenedor principal */
 .detalle {
-  width: 100%;
-  max-width: 1200px;
-  margin: 80px auto;
-  padding: 40px;
-  display: flex;
-  gap: 60px;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #112240, #0a1f4d);
-  border-radius: 30px;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
-}
-
-/* IMAGEN */
-
-.imagenProducto {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 50px;
+  padding: 60px 40px;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #111 0%, #000 100%);
 }
 
+/* Imagen del producto */
 .imagenProducto img {
-  width: 100%;
-  max-width: 450px;
-  height: 450px;
+  width: 400px;
+  height: 550px;
   object-fit: cover;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  box-shadow: 0px 0px 25px rgba(0, 153, 255, 0.4);
+  transition: transform 0.3s ease;
 }
 
-/* INFO PRODUCTO */
+.imagenProducto img:hover {
+  transform: scale(1.03);
+}
 
+/* Información del producto */
 .infoProducto {
-  flex: 1;
+  background-color: #1a1a1a;
+  padding: 40px;
+  border-radius: 15px;
+  width: 400px;
+  box-shadow: 0px 0px 20px rgba(0, 153, 255, 0.2);
+}
+
+/* Labels */
+.infoProducto label {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #00aaff;
 }
 
-.infoProducto h2 {
-  font-size: 34px;
-  color: #ff1e3c;
-  margin: 0;
-}
-
-.infoProducto p {
-  font-size: 16px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.infoProducto strong {
-  color: #00cfff;
-}
-
-/* BOTON */
-
-.infoProducto button {
-  margin-top: 20px;
-  padding: 15px;
+/* Inputs */
+.infoProducto input {
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 8px;
   border: none;
-  border-radius: 15px;
-  background: #ff1e3c;
+  background-color: #2b2b2b;
   color: white;
-  font-weight: bold;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.infoProducto input:focus {
+  box-shadow: 0 0 8px #00aaff;
+}
+
+/* Botones */
+.infoProducto button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
+  font-weight: bold;
   transition: 0.3s ease;
-  width: 200px;
 }
 
-.infoProducto button:hover {
-  background: #e01430;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(255, 30, 60, 0.4);
+/* Botón Editar */
+.infoProducto button:first-of-type {
+  background-color: #0074e4;
+  color: white;
 }
 
-/* MENSAJE NO ENCONTRADO */
-
-h2 {
-  text-align: center;
-  margin-top: 100px;
+.infoProducto button:first-of-type:hover {
+  background-color: #005bb5;
+  transform: scale(1.03);
 }
 
-/* RESPONSIVE */
-
-@media (max-width: 1024px) {
-  .detalle {
-    gap: 40px;
-    padding: 30px;
-  }
-
-  .imagenProducto img {
-    max-width: 350px;
-    height: 350px;
-  }
-
-  .infoProducto h2 {
-    font-size: 28px;
-  }
+/* Botón Eliminar */
+.infoProducto button:last-of-type {
+  background-color: #cc0000;
+  color: white;
 }
 
-@media (max-width: 768px) {
+.infoProducto button:last-of-type:hover {
+  background-color: #990000;
+  transform: scale(1.03);
+}
+
+/* ========================= */
+/* 🔥 RESPONSIVE 🔥 */
+/* ========================= */
+
+@media (max-width: 900px) {
   .detalle {
     flex-direction: column;
-    gap: 30px;
-    margin: 50px 20px;
-    padding: 30px 20px;
+    text-align: center;
+    padding: 40px 20px;
   }
 
   .imagenProducto img {
-    width: 100%;
-    max-width: 320px;
-    height: 320px;
+    width: 280px;
+    height: 400px;
   }
 
   .infoProducto {
-    align-items: center;
-    text-align: center;
-  }
-
-  .infoProducto button {
     width: 100%;
-    max-width: 300px;
+    max-width: 350px;
   }
 }
 
 @media (max-width: 480px) {
-  .detalle {
-    margin: 40px 15px;
-    padding: 25px 15px;
-  }
-
   .imagenProducto img {
-    height: 280px;
+    width: 220px;
+    height: 320px;
   }
 
-  .infoProducto h2 {
-    font-size: 22px;
-  }
-
-  .infoProducto p {
-    font-size: 14px;
+  .infoProducto {
+    padding: 25px;
   }
 }
