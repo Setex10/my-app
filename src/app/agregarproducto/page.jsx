@@ -2,6 +2,7 @@
 import { useState } from "react";
 
 import "./AdminInventario.css";
+import PopUp from "../components/PopUp";
 
 function AdminInventario() {
   const [mostrarPopup, setMostrarPopup] = useState(false);
@@ -50,6 +51,10 @@ function AdminInventario() {
     fetchData()
   }
 
+  const closePopUp = (bool) => {
+    setMostrarPopup(bool)
+  }
+
   return (
   <div>
 
@@ -82,16 +87,7 @@ function AdminInventario() {
       
       </div>
         {mostrarPopup && (
-        <div className="popup">
-          <div className="popup-contenido">
-            <p>Producto agregado correctamente </p>
-            <button onClick={() => {
-              setMostrarPopup(false)
-            }}>
-              Cerrar
-            </button>
-          </div>
-        </div>
+        <PopUp closePopUp={closePopUp} text={"Se agrego el producto"}/>
       )}
 
   </div>

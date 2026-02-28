@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import "./ventas.css";
+import PopUp from "../components/PopUp";
 
 export default function Ventas() {
   const [productsSugest, setProductsSugest] = useState([])
@@ -10,6 +11,12 @@ export default function Ventas() {
     quantity: "",
     price: ""
   })
+
+  const [showPopUp, setShowPopUp] = useState(false) 
+
+  const closePopUp = (bool) => {
+    setShowPopUp(bool)
+  }
 
   const [producstVenta, setProductVenta] = useState([])
 
@@ -57,8 +64,15 @@ export default function Ventas() {
         }
       })
       if(res.status == 200){
+        setShowPopUp(true)
+        setInpNameProduct({
+          nameProduct: "",
+          idProduct: "",
+          quantity: "",
+          price: ""
+        })
       }
-      console.log(await res.json())
+      setProductVenta([])
     } catch (error) {
       console.log(error)
     }
@@ -89,61 +103,65 @@ export default function Ventas() {
 
   },[inpNameProduct])
   return (
-    <div className="contenedor">
-      <h1>VENTAS DIARIAS</h1>
+    <>
+      <div className="contenedor">
+        <h1>VENTAS DIARIAS</h1>
 
-      <div className="formulario">
-        <p>
-          <strong>Registrar nueva venta</strong>
-        </p>
+        <div className="formulario">
+          <p>
+            <strong>Registrar nueva venta</strong>
+          </p>
 
-        <div className="input-buscador">
-          <input type="text" placeholder="Nombre del producto" value={inpNameProduct.name}
-           onChange={onChangeNameProductHandler}/>
+          <div className="input-buscador">
+            <input type="text" placeholder="Nombre del producto" value={inpNameProduct.name}
+            onChange={onChangeNameProductHandler}/>
 
-          {productsSugest.length == 0 ? "": <div className="sugerencias">
-            {productsSugest.map(({name, _id, price}, index) => {
-              return <div className="item-sugerencia" key={index} 
-              nameproduct={name} idproduct={_id}
-              priceproduct={price}
-              onClick={onClickSugest}>{name}</div>
-            })}
-          </div>}
+            {productsSugest.length == 0 ? "": <div className="sugerencias">
+              {productsSugest.map(({name, _id, price}, index) => {
+                return <div className="item-sugerencia" key={index} 
+                nameproduct={name} idproduct={_id}
+                priceproduct={price}
+                onClick={onClickSugest}>{name}</div>
+              })}
+            </div>}
+          </div>
+
+          <input type="number" placeholder="Cantidad" 
+          value={inpNameProduct.quantity} onChange={onChangeValueQuantityHandler}/>
+          <br />
+
+          <input type="number" placeholder="Precio" disabled value={inpNameProduct.price}/>
+          <br />
+
+          <button onClick={onClickGuardarProductHandler}>Guardar producto</button>
         </div>
 
-        <input type="number" placeholder="Cantidad" 
-        value={inpNameProduct.quantity} onChange={onChangeValueQuantityHandler}/>
-        <br />
-
-        <input type="number" placeholder="Precio" disabled value={inpNameProduct.price}/>
-        <br />
-
-        <button onClick={onClickGuardarProductHandler}>Guardar producto</button>
-      </div>
-
-      <div className="lista">
-        <h2>Lista de Productos</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Cantidad</th>
-              <th>Precio</th>
-            </tr>
-          </thead>
-          {producstVenta.length == 0 ? "" : <tbody>
-            {producstVenta.map(({name, price, quantity}, index) => {
-              return <tr key={index}>
-                <td>{name}</td>
-                <td>{quantity}</td>
-                <td>{price}</td>
+        <div className="lista">
+          <h2>Lista de Productos</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
               </tr>
-            })
-            }
-            </tbody>}
-        </table>
+            </thead>
+            {producstVenta.length == 0 ? "" : <tbody>
+              {producstVenta.map(({name, price, quantity}, index) => {
+                return <tr key={index}>
+                  <td>{name}</td>
+                  <td>{quantity}</td>
+                  <td>{price}</td>
+                </tr>
+              })
+              }
+              </tbody>}
+          </table>
+        </div>
+        <button onClick={savePurchaseHandler}>Guardar Compra</button>
       </div>
-      <button onClick={savePurchaseHandler}>Guardar Compra</button>
-    </div>
+      {showPopUp && <PopUp closePopUp={closePopUp} text={"Se guardo la compra"} />}
+    </>
+
   );
 }
