@@ -1,76 +1,77 @@
-require('dotenv').config()
-const express = require("express")
-const app = express()
-const PORT_SEV = process.env.PORT_SEV
-const cors = require("cors")
-const cookieParser = require('cookie-parser');
-const runDb = require("./db.js")
-const fs = require("fs")
-const path = require("path")
+require("dotenv").config();
+const express = require("express");
+const next = require("next");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const runDb = require("./db.js");
+const fs = require("fs");
+const path = require("path");
 
-const routesPath = path.join(__dirname, 'routes');
+const PORT_SEV = process.env.PORT_SEV || 3000;
+const routesPath = path.join(__dirname, "routes");
 
-//Middlewares
-const checkTokenJWT = require("./middleware/tokenJWT.js")
+// 🔥 Inicializar Next
+const dev = process.env.NODE_ENV !== "production";
+const nextApp = next({ dev });
+const handle = nextApp.getRequestHandler();
 
-//Db
-runDb()
+// Middlewares
+const checkTokenJWT = require("./middleware/tokenJWT.js");
 
-app.use(cookieParser())
-app.use(express.json())
-app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true
-}));
+// DB
+runDb();
 
-app.use(checkTokenJWT.unless({
-    path: [
+nextApp.prepare().then(() => {
+  const app = express();
+
+  app.use(cookieParser());
+  app.use(express.json());
+
+  if (dev) {
+    app.use(
+      cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+      })
+    );
+  }
+
+  app.use(
+    checkTokenJWT.unless({
+      path: [
         { url: /^\/login\/?$/, methods: ["GET", "POST"] },
         { url: /^\/createAccount\/?$/, methods: ["GET", "POST"] },
+        { url: /^\/_next\/.*/, methods: ["GET"] }, // importante para Next
         { url: /^\/public\/.*/, methods: ["GET"] },
         { url: /\.(css|js|png|jpg|jpeg|svg|ico)$/i, methods: ["GET"] },
-        "/favicon.ico"
+        "/favicon.ico",
+      ],
+    })
+  );
 
-    ]
-}))
-
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Error en el servidor');
-});
-
-app.use(express.static('../public2'))
-app.use('/static', express.static('../public2'))
-
-
-app.listen(PORT_SEV, () => {
-    console.log(`Servidor activo en http://localhost:${PORT_SEV}`);
-})
-
-const loadRoutes = (folderPath, urlPrefix = '') => {
+  const loadRoutes = (folderPath) => {
     fs.readdirSync(folderPath, { withFileTypes: true }).forEach((item) => {
-        const fullPath = path.join(folderPath, item.name);
-        
-        if (item.isDirectory()) {
-            // Si es carpeta, seguimos bajando y acumulamos el nombre en el prefijo
-            loadRoutes(fullPath, `${urlPrefix}/${item.name}`);
-        } else if (item.name === 'index.js') {
-            // Si encontramos un index.js, lo registramos
-            const route = require(fullPath);
-            
-            // Si el prefijo está vacío (es la raíz de /routes), usamos '/'
-            const finalPath = urlPrefix === '' ? '/' : urlPrefix;
+      const fullPath = path.join(folderPath, item.name);
 
-            app.use(route);
-
-            console.log(`Ruta mapeada: ${finalPath} -> ${fullPath}`);
-        }
+      if (item.isDirectory()) {
+        loadRoutes(fullPath);
+      } else if (item.name === "index.js") {
+        const route = require(fullPath);
+        app.use(route);
+        console.log(`Ruta cargada: ${fullPath}`);
+      }
     });
-};
+  };
 
-loadRoutes(routesPath);
+  loadRoutes(routesPath);
 
-app.get("/", async (req, res) => {
-    res.sendFile("./index.html")
-})
+  app.use((req, res) => {
+  return handle(req, res);
+    app.use((req, res) => {
+  return handle(req, res);
+});});
 
+  app.listen(PORT_SEV, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT_SEV}`);
+  });
+});
