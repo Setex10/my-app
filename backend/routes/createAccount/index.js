@@ -8,10 +8,6 @@ const UserModel = require("../../models/UserModel.js")
 const InventarioModel = require("../../models/InventarioModel.js")
 const EnterpriseModel = require("../../models/EnterpriseModel.js")
 
-route.get("/createAccount", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../public/login/createAccount.html"))
-})
-
 route.post("/createAccount", async (req, res) => {
     const {email, name, password, role, enterprise} = req.body
 

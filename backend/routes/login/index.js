@@ -5,11 +5,6 @@ const path = require("path")
 const jwt = require("jsonwebtoken")
 const UserModel = require("../../models/UserModel.js")
 
-
-route.get("/login", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../public/login/index.html"))
-})
-
 route.post("/login", async(req, res) => {
     const {email, password} = req.body
     try {

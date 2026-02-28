@@ -1,67 +1,79 @@
-* {
-  box-sizing: border-box;
-}
+/* ========================= */
+/* CONTENEDOR GENERAL */
+/* ========================= */
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  overflow-x: hidden;
+.admin-container {
+  min-height: 100vh;
+  padding: 120px 20px 60px 20px; /* espacio por Menu fijo */
   background: radial-gradient(circle at top, #0b1f4b 0%, #000814 75%);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* CONTENEDOR GENERAL */
-div {
-  width: 100%;
-}
-
+/* ========================= */
 /* TITULO */
-h1 {
+/* ========================= */
+
+.admin-title {
   text-align: center;
-  margin-top: 50px;
   margin-bottom: 40px;
-  font-size: 34px;
+  font-size: 32px;
   color: #ff1e3c;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
-/* FORMULARIO CARD */
-h1 + div {
+/* ========================= */
+/* CARD */
+/* ========================= */
+
+.admin-card {
   width: 100%;
   max-width: 600px;
-  margin: 0 auto 60px auto;
   background: linear-gradient(135deg, #112240, #0a1f4d);
   padding: 40px 30px;
   border-radius: 25px;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
 }
 
+/* ========================= */
 /* LABELS */
-h1 + div p {
-  margin: 15px 0 5px 0;
+/* ========================= */
+
+.admin-label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.85);
 }
 
+/* ========================= */
 /* INPUTS */
-h1 + div input {
-  width: 100%;
+/* ========================= */
+
+.admin-input {
+  margin-top: 6px;
   padding: 14px;
   border-radius: 12px;
   border: none;
   outline: none;
   font-size: 14px;
-  margin-bottom: 10px;
 }
 
-h1 + div input:focus {
+.admin-input:focus {
   box-shadow: 0 0 0 3px rgba(30, 167, 211, 0.4);
 }
 
+/* ========================= */
 /* BOTON */
-h1 + div button {
+/* ========================= */
+
+.admin-btn {
   width: 100%;
   padding: 15px;
   margin-top: 20px;
@@ -74,28 +86,34 @@ h1 + div button {
   transition: 0.2s ease;
 }
 
-h1 + div button:hover {
+.admin-btn:hover {
   background: #e01430;
 }
 
-
+/* ========================= */
 /* RESPONSIVE */
+/* ========================= */
+
 @media (max-width: 768px) {
-  h1 {
+  .admin-title {
     font-size: 24px;
   }
 
-  h1 + div {
+  .admin-card {
     padding: 25px 20px;
   }
 }
 
 @media (max-width: 480px) {
-  h1 {
+  .admin-title {
     font-size: 20px;
   }
 
-  h1 + div input {
+  .admin-input {
     font-size: 13px;
+  }
+
+  .admin-btn {
+    font-size: 14px;
   }
 }

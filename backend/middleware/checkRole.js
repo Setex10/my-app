@@ -15,7 +15,7 @@ const checkRoleInventory = async (req, res, next) => {
 
 const checkRoleVentas = async(req, res, next) => {
     const {token} = req.cookies
-    const {role} = await getDecodedJwt(token)
+    const {role} = getDecodedJwt(token)
     console.log(role)
     if(role === "admin" || role === "ventas"){
         next()
@@ -26,4 +26,15 @@ const checkRoleVentas = async(req, res, next) => {
     }
 }
 
-module.exports = {checkRoleInventory, checkRoleVentas}
+const checkRoleAdmin = async(req, res, next) => {
+    const {token} = req.cookies
+    const {role} = getDecodedJwt(token)
+    if(role === "admin"){
+        next()
+    } else {
+        res.status(401).json({
+            message: "No tienes permiso"
+        })
+    }
+}
+module.exports = {checkRoleInventory, checkRoleVentas, checkRoleAdmin}

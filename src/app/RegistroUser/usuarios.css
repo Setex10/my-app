@@ -2,18 +2,17 @@
   box-sizing: border-box;
 }
 
-html, body {
+body {
   margin: 0;
   padding: 0;
   background: radial-gradient(circle at top, #0b1f4b 0%, #000814 80%);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
   overflow-x: hidden;
 }
 
 /* CONTENEDOR GENERAL */
 
-div {
+.containerUser {
   width: 100%;
   padding: 60px 20px;
   display: flex;

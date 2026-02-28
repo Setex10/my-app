@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import PopUp from "./PopUp"
+import Link from "next/link"
 
 const ListUsers = () => {
     const [listUsers, setListUsers] = useState({
@@ -59,16 +60,16 @@ const ListUsers = () => {
             </tr>
         </thead>
         <tbody>
-            {listUsers.list_users.map(({name, email, role, id}, index) => {
+            {listUsers.list_users && listUsers.list_users.length > 0 ? listUsers.list_users.map(({name, email, role, id}, index) => {
                 return <tr key={index}>
-                    <td>{name}</td>
+                    <td><Link href={`User/${id}`}>{name}</Link></td>
                     <td>{email}</td>
                     <td>{role}</td>
                     <td><button onClick={() => {
                         deleteUser(id)
                     }}>Eliminar</button></td>
                 </tr>
-            })}
+            }) : <></>}
         </tbody>
     </table>
     {showPopUp && <PopUp closePopUp={closePopUp} text={"Se eliminó al usuario"}/>}

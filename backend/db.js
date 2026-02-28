@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const uri = process.env.MONGO_URI
 
 async function runDB() {
+  console.log(process.env.MONGO_URI)
   try {
     await mongoose.connect(uri, {
         dbName: "devProject"

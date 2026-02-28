@@ -1,4 +1,5 @@
 'use client'
+import Menu from "@/app/components/Menu";
 import "./usuarios.css";
 
 import React, { useEffect, useState } from "react";
@@ -27,6 +28,7 @@ function Usuarios({params}) {
           setMessage("No existe el usuario o se eliminó")
           return
         }
+        console.log(userRes)
         setUser(userRes)
       } catch (error) {
         console.log(error)
@@ -85,29 +87,57 @@ function Usuarios({params}) {
   }
 
   return (
-    <div>
-      <h2>User</h2>
-        <div>
-          <label>
-            Nombre
-            <input type="text" value={user.name} 
-            name="name" onChange={onChangeInp}/>
-          </label>
-          <label>
-            Email
-            <input type="email" value={user.email} 
-            name="email" onChange={onChangeInp}/>
-          </label>
-          <label>
-            Role
-            <input type="text" value={user.role} 
-            name="role" onChange={onChangeInp}/>
-          </label>
-          <button onClick={editHandler}>Editar</button>
-          <button onClick={deleteUser}>Eliminar</button>
-          <p>{message}</p>
-        </div>
+<>
+  <Menu />
+  <div className="usuarios-container">
+    <h2 className="usuarios-title">Editar Usuario</h2>
+
+    <div className="usuarios-card">
+      <label className="usuarios-label">
+        Nombre
+        <input
+          className="usuarios-input"
+          type="text"
+          value={user.name}
+          name="name"
+          onChange={onChangeInp}
+        />
+      </label>
+
+      <label className="usuarios-label">
+        Email
+        <input
+          className="usuarios-input"
+          type="email"
+          value={user.email}
+          name="email"
+          onChange={onChangeInp}
+        />
+      </label>
+
+      <label className="usuarios-label">
+        Role
+        <input
+          className="usuarios-input"
+          type="text"
+          value={user.role}
+          name="role"
+          onChange={onChangeInp}
+        />
+      </label>
+
+      <button className="usuarios-btn-primary" onClick={editHandler}>
+        Editar
+      </button>
+
+      <button className="usuarios-btn-danger" onClick={deleteUser}>
+        Eliminar
+      </button>
+
+      {message && <p className="usuarios-message">{message}</p>}
     </div>
+  </div>
+</>
   );
 }
 

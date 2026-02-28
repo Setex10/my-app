@@ -26,7 +26,7 @@ const MostrarVentas = () => {
   }, [])
   return <>
   {loadData ? <>
-            {data.lista_pedidos.length > 0 ? data.lista_pedidos.map((pedidos, index) => {
+            {data.lista_pedidos && data.lista_pedidos.length > 0 ? data.lista_pedidos.map((pedidos, index) => {
               console.log(pedidos)
                 return <div key={index}>
                     <h2>{`pedido ${index}`}</h2>
@@ -55,7 +55,7 @@ const MostrarVentas = () => {
                             </tbody>
                     </table>
                 </div>
-            }) : <></>}
+            }) : <><h2>No se encontraron Ventas</h2></>}
             </>
         :<h2>Algo salio mal</h2>}
         </>

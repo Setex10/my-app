@@ -1,10 +1,13 @@
 import FormUser from "../components/FormUser"
 import ListUsers from "../components/ListUsers"
+import Menu from "../components/Menu"
 import "./usuarios.css"
 
 export default function Usuarios() {
     return (
-        <div>
+        <>
+        <Menu />
+        <div className="containerUser">
             <h1>Usuarios</h1>
 
             <h2>Agregar Usuario</h2>
@@ -17,5 +20,6 @@ export default function Usuarios() {
 
             <ListUsers/>
         </div>
+        </>
     )
 }

@@ -1,22 +1,27 @@
 require("dotenv").config()
 const jwt = require("jsonwebtoken"),
-    { unless } = require('express-unless'),
-    path = require("path");
+    { unless } = require('express-unless');
+const UserModel = require("../models/UserModel");
 
-const checkTokenJWT = (req, res, next) => {
+const checkTokenJWT = async(req, res, next) => {
     const token = req.cookies.token;
     console.log(req.path)
     if (!token) {
         if (req.path.startsWith('/api')) {
-            return res.status(401).json({ mensaje: "No autorizado. Token inexistente." });
+            return res.status(401).redirect("/login");
         }
-        return res.status(401).sendFile(path.join(__dirname, "../../public2/errors/noLogin/index.html"))
+        return res.status(401).redirect("/login")
     }
 
     try {
         const decoded = jwt.verify(token, process.env.SECRET_KEY || 'tu_clave_secreta_aqui');
         
         req.user = decoded;
+        const user = await UserModel.findById(decoded.id);
+
+        if (!user) {
+        return res.status(401).redirect("/login");
+        }
         
         next();
     } catch (error) {

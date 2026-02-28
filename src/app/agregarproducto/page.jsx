@@ -3,17 +3,18 @@ import { useState } from "react";
 
 import "./AdminInventario.css";
 import PopUp from "../components/PopUp";
+import Menu from "../components/Menu";
 
 function AdminInventario() {
   const [mostrarPopup, setMostrarPopup] = useState(false);
-
+  const [message, setMessage] = useState("")
   const [product, setProduct] = useState({
     name: "",
     description: "",
     price: "",
     unite_price: "",
     quantity: "",
-    url_img: ""
+    img_url: ""
   })
 
   const onChangeInp = (event) => {
@@ -42,10 +43,16 @@ function AdminInventario() {
       })
       const resJson = await res.json()
       if(resJson.status == 200){
+        setMessage("Se agregó el producto")
         setMostrarPopup(true)
+        return
       }
+      setMessage("Revisa que los datos esten bien")
+      setMostrarPopup(true)
     } catch (error) {
       console.log(error)
+      setMessage("Hubo un error al agregar el producto, revisa los datos")
+      setMostrarPopup(true)
     }
     }
     fetchData()
@@ -56,41 +63,91 @@ function AdminInventario() {
   }
 
   return (
-  <div>
+   <>
+  <Menu />
 
-      <h1>Administrador de Inventario</h1>
+  <div className="admin-container">
+    <h1 className="admin-title">Administrador de Inventario</h1>
 
-      <div>
+    <div className="admin-card">
 
-        <p>Título del artículo</p>
-        <input type="text" name="name" onChange={onChangeInp} value={product.name}/>
+      <label className="admin-label">
+        Título del artículo
+        <input
+          className="admin-input"
+          type="text"
+          name="name"
+          onChange={onChangeInp}
+          value={product.name}
+        />
+      </label>
 
-        <p>Descripción</p>
-        <input type="text" name="description" onChange={onChangeInp} value={product.description}/>
+      <label className="admin-label">
+        Descripción
+        <input
+          className="admin-input"
+          type="text"
+          name="description"
+          onChange={onChangeInp}
+          value={product.description}
+        />
+      </label>
 
-        <p>Precio</p>
-        <input type="text" name="price" onChange={onChangeInp} value={product.price}/>
+      <label className="admin-label">
+        Precio
+        <input
+          className="admin-input"
+          type="number"
+          name="price"
+          onChange={onChangeInp}
+          value={product.price}
+        />
+      </label>
 
-        <p>Precio Unitario</p>
-        <input type="text" name="unite_price" onChange={onChangeInp} value={product.unite_price}/>
+      <label className="admin-label">
+        Precio Unitario
+        <input
+          className="admin-input"
+          type="number"
+          name="unite_price"
+          onChange={onChangeInp}
+          value={product.unite_price}
+        />
+      </label>
 
-        <p>Cantidad</p>
-        <input type="number" name="quantity" onChange={onChangeInp} value={product.quantity}/>
+      <label className="admin-label">
+        Cantidad
+        <input
+          className="admin-input"
+          type="number"
+          name="quantity"
+          onChange={onChangeInp}
+          value={product.quantity}
+        />
+      </label>
 
-        <p>URL de la Imagen</p>
-        <input type="text" name="url_img" onChange={onChangeInp} value={product.url_img}/>
+      <label className="admin-label">
+        URL de la Imagen
+        <input
+          className="admin-input"
+          type="text"
+          name="img_url"
+          onChange={onChangeInp}
+          value={product.url_img}
+        />
+      </label>
 
-        <br /><br />
+      <button className="admin-btn" onClick={handlerSubmit}>
+        Agregar Producto
+      </button>
 
-        <button onClick={handlerSubmit}>Agregar Producto</button>
+    </div>
 
-      
-      </div>
-        {mostrarPopup && (
-        <PopUp closePopUp={closePopUp} text={"Se agrego el producto"}/>
-      )}
-
+    {mostrarPopup && (
+      <PopUp closePopUp={closePopUp} text={message} />
+    )}
   </div>
+</>
   );
 }
 

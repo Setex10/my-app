@@ -7,6 +7,8 @@ export default function CreateAccount() {
     email: "",
     password: "",
     name: "",
+    role: "",
+    enterprise: ""
   });
 
   const [message, setMessage] = useState("");
@@ -30,7 +32,7 @@ export default function CreateAccount() {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({...formData, role: "admin"}),
+        body: JSON.stringify(formData),
       });
 
       const dataJson = await response.json();
@@ -44,7 +46,7 @@ export default function CreateAccount() {
       setMessage(fullMessage);
 
       if (dataJson.status === 201) {
-        window.location.href = `http://localhost:3000/`;
+        window.location.href = `http://localhost:4000/`;
       }
     } catch (error) {
       console.error(error);
@@ -52,11 +54,23 @@ export default function CreateAccount() {
     }
   };
 
+  const onChangeSelect = (event) => {
+    const value = event.target.value
+    setFormData((prevValue) => {
+      return {
+        ...prevValue,
+        role: value
+      }
+    })
+  }
+
+
+
   return (
     <form id="loginUser" onSubmit={handleSubmit}>
            <label>
         Rol
-        <select>
+        <select onChange={onChangeSelect}>
           <option value={""}>selecciona un Rol</option>
           <option value={"inventario"}>Gestionador de Inventario</option>
          <option value={"ventas"}>ventas</option>
@@ -95,6 +109,17 @@ export default function CreateAccount() {
           onChange={handleChange}
         />
       </label>
+
+      {formData.role != "admin" ? <label>
+        Id de la empresa "pedir esta información al administrador"
+        <input type="text" value={formData.enterprise} onChange={handleChange}
+        required
+        name="enterprise"
+        />
+      </label> : <label>
+        Nombre de la empresa a crear
+        <input type="text" name="enterprise" value={formData.enterprise} onChange={handleChange}/>
+        </label>}
 
       <button type="submit">Entrar</button>
 
