@@ -41,7 +41,10 @@ route.post("/api/pedidos", checkRoleVentas, async(req, res) => {
                     price_data: {
                         currency: "mxn",
                         product_data: {
-                            name
+                            name,
+                            metadata: {
+                            productId: product.id.toString()
+                            }
                         },
                         unit_amount: Number(price) * 100,
                     },
@@ -54,6 +57,37 @@ route.post("/api/pedidos", checkRoleVentas, async(req, res) => {
                 success_url: `http://localhost:4000/success`,
             });
             return res.json({url: session.url})
+        }
+        if (method === "efectivo") {
+
+            const inventario = await InventarioModel.findOne({ enterprise });
+
+            if (!inventario) {
+                return res.status(400).json({
+                    message: "Inventario no encontrado"
+                });
+            }
+
+            for (const item of pedido) {
+
+                const product = inventario.product_list.id(item.productId);
+
+                if (!product) {
+                    return res.status(400).json({
+                        message: `Producto no encontrado`
+                    });
+                }
+
+                if (product.quantity < item.quantity) {
+                    return res.status(400).json({
+                        message: `Stock insuficiente para ${product.name}`
+                    });
+                }
+
+                product.quantity -= item.quantity;
+            }
+
+            await inventario.save();
         }
         await PedidosModel.findOneAndUpdate({enterprise},  {
             $setOnInsert: {
