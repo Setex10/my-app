@@ -44,6 +44,12 @@ const FormUser = () => {
                 return setMessage(resJson.detalles[0])
             }
             setShowPopUp(true)
+            setUserData({
+                name: "",
+                email: "",
+                role: "",
+                password: ""
+            })
         } catch (error) {
             console.log(error)
         }
