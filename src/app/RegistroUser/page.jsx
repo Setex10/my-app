@@ -7,7 +7,7 @@ export default function Usuarios() {
     return (
         <>
         <Menu />
-        <div>
+        <div className="containerUser">
             <h1>Usuarios</h1>
 
             <h2>Agregar Usuario</h2>

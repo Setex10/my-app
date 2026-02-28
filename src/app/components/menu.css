@@ -1,7 +1,8 @@
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
+/* ========================= */
+/* HEADER */
+/* ========================= */
+
+.menu-header {
   width: 100%;
   height: 70px;
   background-color: #ffffff;
@@ -12,7 +13,11 @@ header {
   z-index: 1000;
 }
 
-nav {
+/* ========================= */
+/* NAV */
+/* ========================= */
+
+.menu-nav {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -21,7 +26,11 @@ nav {
   padding: 0 20px;
 }
 
-nav ul {
+/* ========================= */
+/* LISTA */
+/* ========================= */
+
+.menu-list {
   list-style: none;
   display: flex;
   align-items: center;
@@ -30,23 +39,27 @@ nav ul {
   margin: 0;
 }
 
-nav ul li img {
+.menu-item img {
   width: 28px;
   height: 28px;
   cursor: pointer;
   transition: 0.2s ease;
 }
 
-nav ul li img:hover {
+.menu-item img:hover {
   transform: scale(1.2);
 }
 
-.barra-de-busqueda {
+.menu-search {
   margin-left: 30px;
+}
+
+/* Si tu SearchProduct usa estas clases, mantenemos compatibilidad */
+.menu-search .barra-de-busqueda {
   position: relative;
 }
 
-.barra-de-busqueda input {
+.menu-search input {
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.08);
   outline: none;
@@ -60,17 +73,17 @@ nav ul li img:hover {
   backdrop-filter: blur(10px);
 }
 
-.barra-de-busqueda input:focus {
+.menu-search input:focus {
   background: rgba(0, 0, 0, 0.03);
   border: 1px solid rgba(0, 0, 0, 0.15);
   box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.04);
 }
 
-.barra-de-busqueda input::placeholder {
+.menu-search input::placeholder {
   color: rgba(0, 0, 0, 0.45);
 }
 
-.sugerencias {
+.menu-search .sugerencias {
   position: absolute;
   top: 100%;
   left: 0;
@@ -79,7 +92,6 @@ nav ul li img:hover {
   flex-direction: column;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   list-style: none;
   padding: 8px 0;
   margin-top: 8px;
@@ -92,16 +104,15 @@ nav ul li img:hover {
   overflow-y: auto;
 }
 
-.sugerencias li {
+.menu-search .sugerencias li {
   padding: 12px 18px;
   font-size: 14px;
-  font-weight: 400;
   color: #1d1d1f;
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
-.sugerencias li:hover {
+.menu-search .sugerencias li:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
@@ -110,57 +121,57 @@ nav ul li img:hover {
 /* ========================= */
 
 @media (max-width: 1024px) {
-  nav {
+  .menu-nav {
     gap: 20px;
   }
 
-  nav ul {
+  .menu-list {
     gap: 18px;
   }
 
-  .barra-de-busqueda input {
+  .menu-search input {
     width: 180px;
   }
 }
 
 @media (max-width: 768px) {
-  header {
+  .menu-header {
     height: auto;
     padding: 10px 0;
   }
 
-  nav {
+  .menu-nav {
     flex-direction: column;
     gap: 15px;
   }
 
-  nav ul {
+  .menu-list {
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
   }
 
-  .barra-de-busqueda {
+  .menu-search {
     margin-left: 0;
   }
 
-  .barra-de-busqueda input {
+  .menu-search input {
     width: 200px;
   }
 }
 
 @media (max-width: 480px) {
-  nav ul {
+  .menu-list {
     gap: 12px;
   }
 
-  nav ul li img {
+  .menu-item img {
     width: 24px;
     height: 24px;
   }
 
-  .barra-de-busqueda input {
+  .menu-search input {
     width: 160px;
     font-size: 13px;
   }
-}
+} 

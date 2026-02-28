@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "./product.css";
 import PopUp from "@/app/components/PopUp";
+import Menu from "@/app/components/Menu";
 
 export default function DetalleProducto({params}) {
   const {id} = React.use(params)
@@ -88,6 +89,7 @@ export default function DetalleProducto({params}) {
     }
   }, [])
   return <>
+  <Menu />
   {product ? <div className="detalle">
 
       <div className="imagenProducto">
