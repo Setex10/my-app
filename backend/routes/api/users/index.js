@@ -75,11 +75,11 @@ route.delete("/api/user/:id", async(req, res) => {
 })
 
 route.put("/api/user/:id", async(req, res) => {
-    const {token} = req.cookies
-    const {id} = req.cookies
+    const {id} = req.params
     const valuesToUpdate = req.body
     try {
-        const doc = UserModel.findById(id)
+        const doc = await UserModel.findById(id)
+        console.log(doc)
         Object.keys(valuesToUpdate).map((key) => {
             doc[key] = valuesToUpdate[key]
         })
@@ -88,15 +88,6 @@ route.put("/api/user/:id", async(req, res) => {
             message: "Se modifico el usuario"
         })
     } catch (error) {
-        if(error.name == "ValidationError"){
-            const mensajes = Object.values(error.errors).map(el => el.message);
-            return res.status(400).json({ error: "Datos inválidos", detalles: mensajes });
-        }
-        if (error.code === 11000) {
-            return res.status(400).json({ error: "El correo ya está registrado", detalles: [
-                "Correo Ya existe"
-            ]});
-        }
         console.log(error)
         res.status(400).json({
             message: "Algo malo pasó"
