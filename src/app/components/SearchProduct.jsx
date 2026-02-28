@@ -42,7 +42,7 @@ const SearchProduct = () => {
                     value={inpNameProduct }
                     onChange={inptProductOnChangeHandler}
                 />
-            {productSugest.length > 0 && <ul className="sugerencias">
+            {productSugest && productSugest.length > 0 && <ul className="sugerencias">
                 {productSugest.map((product, index) => {
                   return <li key={index}>
                     <Link href={`/product/${product.id}`}>{product.name}

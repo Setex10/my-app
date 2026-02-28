@@ -1,3 +1,4 @@
+const { checkRoleAdmin } = require("../../../middleware/checkRole.js");
 const { getDecodedJwt } = require("../../../utils/getDecodedJwt.js")
 
 require("dotenv").config()
@@ -5,7 +6,7 @@ const express = require("express"),
 route = express.Router(),
 UserModel = require("../../../models/UserModel.js");
 
-route.get("/api/user", async(req, res) => {
+route.get("/api/user", checkRoleAdmin, async(req, res) => {
     const {token} = req.cookies
     const {enterprise} = getDecodedJwt(token)
     const {id} = req.query
@@ -34,7 +35,7 @@ route.get("/api/user", async(req, res) => {
     }
 })
 
-route.post("/api/user", async(req, res) => {
+route.post("/api/user", checkRoleAdmin, async(req, res) => {
     const {token} = req.cookies
     const {enterprise} = getDecodedJwt(token)
     const {name, role, email, password} = req.body
@@ -63,7 +64,7 @@ route.post("/api/user", async(req, res) => {
     }
 })
 
-route.delete("/api/user/:id", async(req, res) => {
+route.delete("/api/user/:id", checkRoleAdmin, async(req, res) => {
     const {id} = req.params
     try {
         const doc = await UserModel.findByIdAndDelete(id)
@@ -80,7 +81,7 @@ route.delete("/api/user/:id", async(req, res) => {
     }
 })
 
-route.put("/api/user/:id", async(req, res) => {
+route.put("/api/user/:id", checkRoleAdmin, async(req, res) => {
     const {id} = req.params
     const valuesToUpdate = req.body
     try {
