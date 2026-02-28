@@ -13,7 +13,7 @@ route.get("/api/product/:id", checkRoleInventory, async (req,res) =>{
         const doc = await getInventario(token)
         const {product_list} = doc
         const product = product_list.filter((item) => item.id == id) 
-        res.send(product)
+        res.json(product)
     } catch (error) {
         console.log(error)
         res.status(400).send({message: "Existe un erorr", error})

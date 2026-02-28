@@ -2,12 +2,13 @@ const buscarProductos = (texto, productos) => {
   const regex = new RegExp(texto, "gi");
 
   return productos
-    .map(({name, id}) => {
+    .map(({name, id, price}) => {
       const coincidencias = name.match(regex);
       return {
         name,
         score: coincidencias ? coincidencias.length : 0,
-        id
+        id,
+        price
       };
     })
     .filter(p => p.score > 0)

@@ -28,6 +28,7 @@ function Usuarios({params}) {
           setMessage("No existe el usuario o se eliminó")
           return
         }
+        console.log(userRes)
         setUser(userRes)
       } catch (error) {
         console.log(error)

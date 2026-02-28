@@ -81,6 +81,7 @@ export default function DetalleProducto({params}) {
                           credentials: "include"
                         })
           const resJson = await res.json()
+          console.log(resJson)
           setProduct(resJson[0])
         }
         fetchData()
@@ -111,6 +112,11 @@ export default function DetalleProducto({params}) {
       <label>
         descripcion
         <input onChange={onChangeInp} name="description" type="text" value={product.description}/>
+      </label>
+
+      <label>
+        Precio Unitario
+        <input onChange={onChangeInp} name="unite_price" type="text" value={product.unite_price}/>
       </label>
        
       <label>

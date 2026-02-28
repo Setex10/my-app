@@ -14,7 +14,7 @@ function AdminInventario() {
     price: "",
     unite_price: "",
     quantity: "",
-    url_img: ""
+    img_url: ""
   })
 
   const onChangeInp = (event) => {
@@ -97,7 +97,7 @@ function AdminInventario() {
         Precio
         <input
           className="admin-input"
-          type="text"
+          type="number"
           name="price"
           onChange={onChangeInp}
           value={product.price}
@@ -131,7 +131,7 @@ function AdminInventario() {
         <input
           className="admin-input"
           type="text"
-          name="url_img"
+          name="img_url"
           onChange={onChangeInp}
           value={product.url_img}
         />
