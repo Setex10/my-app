@@ -10,7 +10,7 @@ const SearchProduct = () => {
     if(inpNameProduct.trim().length > 0){
       const fetchData = async() => {
         try {
-          const res = await fetch(`http://localhost:4000/api/inventario?name=${inpNameProduct}`, {
+          const res = await fetch(`https://my-app-7usk.onrender.com/api/inventario?name=${inpNameProduct}`, {
             credentials: "include",
             headers: {
               "Content-Type": "application/json"

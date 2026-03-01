@@ -26,7 +26,7 @@ export default function CreateAccount() {
     event.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:4000/createAccount`, {
+      const response = await fetch(`https://my-app-7usk.onrender.com/createAccount`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export default function CreateAccount() {
       setMessage(fullMessage);
 
       if (dataJson.status === 201) {
-        window.location.href = `http://localhost:4000/`;
+        window.location.href = `https://my-app-7usk.onrender.com/`;
       }
     } catch (error) {
       console.error(error);

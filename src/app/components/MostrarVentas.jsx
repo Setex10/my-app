@@ -7,7 +7,7 @@ const MostrarVentas = () => {
   useEffect(() => {
     const fetchFunction = async() => {
         try {
-            const dataRes = await fetch("http://localhost:4000/api/pedidos", {
+            const dataRes = await fetch("https://my-app-7usk.onrender.com/api/pedidos", {
                 method: "GET",
                 credentials: "include",
                 headers: {

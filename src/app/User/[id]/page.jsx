@@ -14,7 +14,7 @@ function Usuarios({params}) {
   useEffect(() => {
     const fetchData = async() => {
       try {
-        const res = await fetch(`http://localhost:4000/api/user?id=${id}`, {
+        const res = await fetch(`https://my-app-7usk.onrender.com/api/user?id=${id}`, {
           method: "GET",
                 credentials: "include",
                 headers: {
@@ -52,7 +52,7 @@ function Usuarios({params}) {
 
   const editHandler = async() => {
       try {
-        const res = await fetch(`http://localhost:4000/api/user/${id}`, {
+        const res = await fetch(`https://my-app-7usk.onrender.com/api/user/${id}`, {
           method: "PUT",
           credentials: "include",
           headers: {
@@ -71,7 +71,7 @@ function Usuarios({params}) {
 
   const deleteUser = async() => {
  try {
-        const res = await fetch(`http://localhost:4000/api/user/${id}`, {
+        const res = await fetch(`https://my-app-7usk.onrender.com/api/user/${id}`, {
           method: "DELETE",
           credentials: "include",
           headers: {

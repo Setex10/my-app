@@ -32,7 +32,7 @@ function AdminInventario() {
     console.log(product)
     const fetchData = async() => {
       try {
-      const res = await fetch("http://localhost:4000/api/product", {
+      const res = await fetch("https://my-app-7usk.onrender.com/api/product", {
         method: "POST",
         credentials: "include",
         body: JSON.stringify(product),

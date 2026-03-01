@@ -30,7 +30,7 @@ const FormUser = () => {
 
     const submitHandler = async() => {
         try {
-            const res = await fetch("http://localhost:4000/api/user", {
+            const res = await fetch("https://my-app-7usk.onrender.com/api/user", {
                 method: "POST",
                 credentials: "include",
                 headers: {

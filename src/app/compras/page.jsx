@@ -55,7 +55,7 @@ export default function Ventas() {
 
   const savePurchaseHandler = async(method) => {
     try {
-      const res = await fetch("http://localhost:4000/api/pedidos", {
+      const res = await fetch("https://my-app-7usk.onrender.com/api/pedidos", {
         method: "POST",
         body: JSON.stringify({pedido: producstVenta, method}),
         credentials: "include",
@@ -91,7 +91,7 @@ export default function Ventas() {
       }
       const fetchData = async() => {
         try {
-          const res = await fetch(`http://localhost:4000/api/inventario?name=${inpNameProduct.nameProduct}`, {
+          const res = await fetch(`https://my-app-7usk.onrender.com/api/inventario?name=${inpNameProduct.nameProduct}`, {
             credentials: "include"
           }
           )

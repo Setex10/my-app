@@ -37,7 +37,7 @@ export default function DetalleProducto({params}) {
   const editProduct = () => {
     try {
         const fetchData = async() => {
-          const res = await fetch(`http://localhost:4000/api/product/${id}`,{
+          const res = await fetch(`https://my-app-7usk.onrender.com/api/product/${id}`,{
                           credentials: "include",
                           method: "PUT",
                           headers: {
@@ -58,7 +58,7 @@ export default function DetalleProducto({params}) {
   const deleteProduct = () => {
     try {
         const fetchData = async() => {
-          const res = await fetch(`http://localhost:4000/api/product/${id}`,{
+          const res = await fetch(`https://my-app-7usk.onrender.com/api/product/${id}`,{
                           credentials: "include",
                           method: "DELETE",
                           headers: {
@@ -77,7 +77,7 @@ export default function DetalleProducto({params}) {
   useEffect(() => {
     try {
         const fetchData = async() => {
-          const res = await fetch(`http://localhost:4000/api/product/${id}`,{
+          const res = await fetch(`https://my-app-7usk.onrender.com/api/product/${id}`,{
                           credentials: "include"
                         })
           const resJson = await res.json()

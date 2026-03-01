@@ -9,7 +9,7 @@ export default function  Inventario(){
   useEffect(() => {
     const fetchFunction = async () => {
       try {
-      const res = await fetch("http://localhost:4000/api/inventario", {
+      const res = await fetch("https://my-app-7usk.onrender.com/api/inventario", {
       method: "GET",
       credentials: "include"
       })

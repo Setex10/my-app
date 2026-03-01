@@ -12,7 +12,7 @@ const ListUsers = () => {
 
     const deleteUser = async(id) => {
         try {
-            const res = await fetch(`http://localhost:4000/api/user/${id}`, {
+            const res = await fetch(`https://my-app-7usk.onrender.com/api/user/${id}`, {
                     method: "DELETE",
                     credentials: "include",
                     headers: {
@@ -30,7 +30,7 @@ const ListUsers = () => {
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const res = await fetch("http://localhost:4000/api/user", {
+                const res = await fetch("https://my-app-7usk.onrender.com/api/user", {
                     method: "GET",
                     credentials: "include",
                     headers: {
