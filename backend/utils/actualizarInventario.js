@@ -1,4 +1,4 @@
-const Inventario = require("./models/Inventario");
+const InventarioModel = require("../models/InventarioModel");
 
 async function actualizarInventario(lineItems) {
 
@@ -7,8 +7,7 @@ async function actualizarInventario(lineItems) {
     const productId = item.price.product.metadata.productId;
     const quantityComprada = item.quantity;
 
-    // 🔥 Buscar inventario que tenga ese producto
-    const inventario = await Inventario.findOne({
+    const inventario = await InventarioModel.findOne({
       "product_list._id": productId
     });
 

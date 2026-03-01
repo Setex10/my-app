@@ -2,11 +2,11 @@ const express = require("express");
 const actualizarInventario = require("../../../utils/actualizarInventario");
 const route = express.Router()
 
-route.post( "/api/stripe-webhook",
+route.post("/api/stripe-webhook",
   express.raw({ type: "application/json" }),
   async (req, res) => {
     const sig = req.headers["stripe-signature"];
-
+    console.log("hdasas")
     let event;
 
     try {
@@ -33,3 +33,5 @@ route.post( "/api/stripe-webhook",
     res.json({ received: true });
   }
 );
+
+module.exports = route

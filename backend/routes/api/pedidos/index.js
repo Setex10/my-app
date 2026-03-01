@@ -36,14 +36,14 @@ route.post("/api/pedidos", checkRoleVentas, async(req, res) => {
     try {
         if(method == "tarjeta"){
             console.log(pedido)
-            const list_items = pedido.map(({name, price, quantity}) => {
+            const list_items = pedido.map(({name, price, quantity, id}) => {
                 return {
                     price_data: {
                         currency: "mxn",
                         product_data: {
                             name,
                             metadata: {
-                            productId: product.id.toString()
+                            productId: id
                             }
                         },
                         unit_amount: Number(price) * 100,
