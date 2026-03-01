@@ -58,7 +58,7 @@ route.post("/api/pedidos", checkRoleVentas, async(req, res) => {
               const session = await stripe.checkout.sessions.create({
                 line_items: list_items,
                 mode: 'payment',
-                success_url: `http://localhost:4000/success`,
+                success_url: `https://my-app-7usk.onrender.com/success`,
             });
             
             await descontarInventario(pedido, enterprise);
