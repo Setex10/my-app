@@ -38,7 +38,6 @@ const MostrarVentas = () => {
                                     <th>Precio</th>
                                     <th>Total</th>
                                     <th>Método de Pago</th>
-                                    <th>Fecha</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,8 +47,7 @@ const MostrarVentas = () => {
                                     <td>{compra.quantity}</td>
                                     <td>{compra.price}</td>
                                     <td>{compra.price * compra.quantity}</td>
-                                    <td>Efectivo</td>
-                                    <td>22/02/2026</td>
+                                    <td>{pedidos.method}</td>
                                 </tr>
                                 })}
                             </tbody>

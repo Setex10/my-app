@@ -14,6 +14,7 @@ export default function Ventas() {
   })
 
   const [showPopUp, setShowPopUp] = useState(false) 
+  const [message, setMessage] = useState("")
 
   const closePopUp = (bool) => {
     setShowPopUp(bool)
@@ -54,6 +55,7 @@ export default function Ventas() {
   }
 
   const savePurchaseHandler = async(method) => {
+    setMessage("")
     try {
       const res = await fetch("http://localhost:4000/api/pedidos", {
         method: "POST",
@@ -77,6 +79,12 @@ export default function Ventas() {
           quantity: "",
           price: ""
         })
+        setMessage("Se guardo la compra")
+        setShowPopUp(true)
+      } else {
+        const resJson = await res.json()
+        setMessage(resJson.message)
+        setShowPopUp(true)
       }
       setProductVenta([])
     } catch (error) {
@@ -175,7 +183,7 @@ export default function Ventas() {
           }}>Pago en tarjeta
           </button>
       </div>
-      {showPopUp && <PopUp closePopUp={closePopUp} text={"Se guardo la compra"} />}
+      {showPopUp && <PopUp closePopUp={closePopUp} text={message} />}
     </>
 
   );
