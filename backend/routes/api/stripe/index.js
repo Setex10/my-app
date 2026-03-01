@@ -1,9 +1,9 @@
 const express = require("express");
 const actualizarInventario = require("../../../utils/actualizarInventario");
 const route = express.Router()
+const stripe = require("../../../stripe.js");
 
 route.post("/api/stripe-webhook",
-  express.raw({ type: "application/json" }),
   async (req, res) => {
     const sig = req.headers["stripe-signature"];
     console.log("hdasas")

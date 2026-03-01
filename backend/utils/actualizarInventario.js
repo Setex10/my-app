@@ -1,34 +1,29 @@
 const InventarioModel = require("../models/InventarioModel");
 
-async function actualizarInventario(lineItems) {
+async function descontarInventario(pedido, enterprise) {
 
-  for (const item of lineItems) {
+  const inventario = await InventarioModel.findOne({ enterprise });
+  console.log(inventario)
+  if (!inventario) {
+    throw new Error("Inventario no encontrado");
+  }
 
-    const productId = item.price.product.metadata.productId;
-    const quantityComprada = item.quantity;
+  for (const item of pedido) {
 
-    const inventario = await InventarioModel.findOne({
-      "product_list._id": productId
-    });
-
-    if (!inventario) {
-      throw new Error("Inventario no encontrado");
-    }
-
-    const product = inventario.product_list.id(productId);
+    const product = inventario.product_list.id(item.idProduct);
 
     if (!product) {
-      throw new Error("Producto no encontrado");
+      throw new Error(`Producto no encontrado`);
     }
 
-    if (product.quantity < quantityComprada) {
-      throw new Error("Stock insuficiente");
+    if (product.quantity < item.quantity) {
+      throw new Error(`Stock insuficiente para ${product.name}`);
     }
 
-    product.quantity -= quantityComprada;
-
-    await inventario.save();
+    product.quantity -= item.quantity;
   }
+
+  await inventario.save();
 }
 
-module.exports = actualizarInventario
+module.exports = descontarInventario

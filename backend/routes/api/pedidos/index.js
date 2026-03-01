@@ -6,6 +6,7 @@ const { getDecodedJwt } = require("../../../utils/getDecodedJwt.js")
 const { default: mongoose } = require("mongoose")
 const { checkRoleVentas } = require("../../../middleware/checkRole.js")
 const stripe = require("../../../stripe.js")
+const descontarInventario = require("../../../utils/actualizarInventario.js")
 
 route.get("/api/pedidos", checkRoleVentas, async (req,res) =>{
     const {token} = req.cookies
@@ -35,7 +36,6 @@ route.post("/api/pedidos", checkRoleVentas, async(req, res) => {
     }
     try {
         if(method == "tarjeta"){
-            console.log(pedido)
             const list_items = pedido.map(({name, price, quantity, id}) => {
                 return {
                     price_data: {
@@ -56,53 +56,15 @@ route.post("/api/pedidos", checkRoleVentas, async(req, res) => {
                 mode: 'payment',
                 success_url: `http://localhost:4000/success`,
             });
+            
+            await descontarInventario(pedido, enterprise);
+
             return res.json({url: session.url})
         }
         if (method === "efectivo") {
 
-            const inventario = await InventarioModel.findOne({ enterprise });
-
-            if (!inventario) {
-                return res.status(400).json({
-                    message: "Inventario no encontrado"
-                });
-            }
-
-            for (const item of pedido) {
-
-                const product = inventario.product_list.id(item.productId);
-
-                if (!product) {
-                    return res.status(400).json({
-                        message: `Producto no encontrado`
-                    });
-                }
-
-                if (product.quantity < item.quantity) {
-                    return res.status(400).json({
-                        message: `Stock insuficiente para ${product.name}`
-                    });
-                }
-
-                product.quantity -= item.quantity;
-            }
-
-            await inventario.save();
+           await descontarInventario(pedido, enterprise)
         }
-        await PedidosModel.findOneAndUpdate({enterprise},  {
-            $setOnInsert: {
-            enterprise,
-            },
-            $push: {
-                id_compra: new mongoose.Types.ObjectId(),
-                lista_pedidos: {
-                    list_compra: pedido
-                }
-            }
-        },
-        { 
-            upsert: true, new: true 
-        })
         res.status(200).json({
             message:"Se agrego la compra", status: 200
         })
