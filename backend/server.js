@@ -10,12 +10,10 @@ const path = require("path");
 const PORT_SEV = process.env.PORT_SEV || 3000;
 const routesPath = path.join(__dirname, "routes");
 
-// 🔥 Inicializar Next
 const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
-// Middlewares
 const checkTokenJWT = require("./middleware/tokenJWT.js");
 
 // DB
@@ -25,6 +23,10 @@ nextApp.prepare().then(() => {
   const app = express();
 
   app.use(cookieParser());
+   app.use("/api/stripe-webhook",
+    express.raw({ type: "application/json" }),
+    require("./routes/api/stripe/index.js")
+  );
   app.use(express.json());
 
   if (dev) {
@@ -64,12 +66,9 @@ nextApp.prepare().then(() => {
   };
 
   loadRoutes(routesPath);
-
-  app.use((req, res) => {
-  return handle(req, res);
-    app.use((req, res) => {
-  return handle(req, res);
-});});
+   app.use((req, res) => {
+      return handle(req, res);
+  });
 
   app.listen(PORT_SEV, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT_SEV}`);

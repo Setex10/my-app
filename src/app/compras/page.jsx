@@ -53,11 +53,11 @@ export default function Ventas() {
     })
   }
 
-  const savePurchaseHandler = async() => {
+  const savePurchaseHandler = async(method) => {
     try {
       const res = await fetch("http://localhost:4000/api/pedidos", {
         method: "POST",
-        body: JSON.stringify({pedido: producstVenta}),
+        body: JSON.stringify({pedido: producstVenta, method}),
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
@@ -65,6 +65,11 @@ export default function Ventas() {
         }
       })
       if(res.status == 200){
+        const resJson = await res.json()
+        if(resJson.url) {
+          window.location.href = resJson.url
+          return
+        }
         setShowPopUp(true)
         setInpNameProduct({
           nameProduct: "",
@@ -161,7 +166,14 @@ export default function Ventas() {
               </tbody>}
           </table>
         </div>
-        <button onClick={savePurchaseHandler}>Guardar Compra</button>
+        <button onClick={() => {
+          savePurchaseHandler("efectivo")
+          }}>Pago en Efectivo
+          </button>
+          <button onClick={() => {
+          savePurchaseHandler("tarjeta")
+          }}>Pago en tarjeta
+          </button>
       </div>
       {showPopUp && <PopUp closePopUp={closePopUp} text={"Se guardo la compra"} />}
     </>
