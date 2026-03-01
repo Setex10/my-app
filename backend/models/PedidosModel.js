@@ -7,6 +7,10 @@ const CompraSchema = mongoose.Schema({
         price: Number, 
         quantity: Number,
     }],
+    method: {
+        type: String, 
+        enum: ["efectivo", "tarjeta"],
+    },
     id_compra: Schema.Types.ObjectId
 })
 

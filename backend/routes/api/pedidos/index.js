@@ -3,10 +3,10 @@ const route = express.Router()
 const jwt = require("jsonwebtoken")
 const PedidosModel = require("../../../models/PedidosModel.js")
 const { getDecodedJwt } = require("../../../utils/getDecodedJwt.js")
-const { default: mongoose } = require("mongoose")
 const { checkRoleVentas } = require("../../../middleware/checkRole.js")
 const stripe = require("../../../stripe.js")
 const descontarInventario = require("../../../utils/actualizarInventario.js")
+const { default: mongoose } = require("mongoose")
 
 route.get("/api/pedidos", checkRoleVentas, async (req,res) =>{
     const {token} = req.cookies
@@ -35,6 +35,10 @@ route.post("/api/pedidos", checkRoleVentas, async(req, res) => {
         })
     }
     try {
+        const list_compra = pedido.map(({name, price, quantity}) => {
+        return {
+                name, price, quantity
+        }})
         if(method == "tarjeta"){
             const list_items = pedido.map(({name, price, quantity, id}) => {
                 return {
@@ -58,20 +62,38 @@ route.post("/api/pedidos", checkRoleVentas, async(req, res) => {
             });
             
             await descontarInventario(pedido, enterprise);
-
+            const doc = await PedidosModel.findOneAndUpdate({enterprise}, {
+                $push : {
+                    lista_pedidos: {
+                        id_compra: new mongoose.Types.ObjectId(),
+                        list_compra : list_compra,
+                        method
+                    }
+                }
+            }, { new: true, upsert: true })
             return res.json({url: session.url})
         }
         if (method === "efectivo") {
 
            await descontarInventario(pedido, enterprise)
         }
+        const doc = await PedidosModel.findOneAndUpdate({enterprise}, {
+            $push : {
+                lista_pedidos: {
+                    id_compra: new mongoose.Types.ObjectId(),
+                    list_compra : list_compra,
+                    method
+                }
+            }
+        }, { new: true, upsert: true })
+        console.log(doc)
         res.status(200).json({
             message:"Se agrego la compra", status: 200
         })
     } catch (error) {
         console.log(error)
         return res.status(400).json({
-            message: "Algo salió mal",
+            message: error.message,
             status: 400
         })
     }
